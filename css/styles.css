@@ -1,0 +1,260 @@
+/* Designwerte */
+:root {
+  --color-bg: #fbfaf7;
+  --color-bg-alt: #f0eee8;
+  --color-surface: #ffffff;
+  --color-text: #1f2328;
+  --color-muted: #555d66;
+  --color-accent: #1f6f50;
+  --color-accent-dark: #164f39;
+  --color-border: #dcd8ce;
+  --color-focus: #b8470f;
+
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 1rem;
+  --line-height: 1.6;
+
+  --space-xs: 0.25rem;
+  --space-s: 0.5rem;
+  --space-m: 1rem;
+  --space-l: 2rem;
+  --space-xl: 4rem;
+
+  --radius: 0.5rem;
+  --max-width: 70rem;
+  --focus-ring: 3px solid var(--color-focus);
+}
+
+/* Basis (mobile first) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0 0 var(--space-m);
+}
+
+h1 {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+p {
+  margin: 0 0 var(--space-m);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent-dark);
+}
+
+/* Sichtbarer Tastaturfokus */
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+main:focus {
+  outline: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-m);
+}
+
+/* Sprunglink */
+.skip-link {
+  position: absolute;
+  top: var(--space-s);
+  left: var(--space-s);
+  z-index: 100;
+  padding: var(--space-s) var(--space-m);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* Kopfzeile und Navigation */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s) var(--space-m);
+  padding-block: var(--space-s);
+}
+
+.brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-m);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-list a {
+  display: inline-block;
+  padding-block: var(--space-xs);
+  text-decoration: none;
+  color: var(--color-muted);
+}
+
+.nav-list a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+/* Abschnitte: Platz für die Sticky-Navigation beim Springen */
+section {
+  scroll-margin-top: 6rem;
+}
+
+.card {
+  scroll-margin-top: 6rem;
+}
+
+.hero {
+  padding-block: var(--space-xl);
+}
+
+.lead {
+  max-width: 40rem;
+  font-size: 1.125rem;
+  color: var(--color-muted);
+}
+
+.button {
+  display: inline-block;
+  padding: var(--space-s) var(--space-l);
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--color-accent-dark);
+  color: #ffffff;
+}
+
+.section {
+  padding-block: var(--space-l);
+}
+
+.section-alt {
+  background: var(--color-bg-alt);
+}
+
+/* Projektkarten: mobil untereinander */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-m);
+}
+
+.card {
+  padding: var(--space-l) var(--space-m);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.card-tag {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+}
+
+.skill-list {
+  margin: 0;
+  padding-left: var(--space-l);
+}
+
+.skill-list li + li {
+  margin-top: var(--space-s);
+}
+
+.site-footer {
+  padding-block: var(--space-l);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* Ab Tablet: Karten nebeneinander */
+@media (min-width: 48rem) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section {
+    padding-block: var(--space-xl);
+  }
+
+  .card {
+    padding: var(--space-l);
+  }
+}

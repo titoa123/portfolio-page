@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alessandro – Portfolio</title>
+  <meta name="description" content="Portfolio von Alessandro: Projekte, Skills und Kontakt.">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Hauptinhalt springen</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#start">Alessandro</a>
+      <nav aria-label="Abschnitte">
+        <ul class="nav-list">
+          <li><a href="#start">Start</a></li>
+          <li><a href="#projekte">Projekte</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#ueber-mich">Über mich</a></li>
+          <li><a href="#hobbys">Hobbys</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section id="start" class="hero" aria-labelledby="start-title">
+      <div class="container">
+        <h1 id="start-title">Hallo, ich bin Alessandro</h1>
+        <p class="lead">
+          Ich verbinde Kundenbetreuung und Softwareverkauf mit technischem Interesse:
+          Ich kläre Anforderungen, plane Lösungen und baue eigene Projekte – vom Teamkonzept
+          bis zum segmentierten Homelab.
+        </p>
+        <a class="button" href="#projekte">Projekte ansehen</a>
+      </div>
+    </section>
+
+    <section id="projekte" class="section" aria-labelledby="projekte-title">
+      <div class="container">
+        <h2 id="projekte-title">Projekte</h2>
+        <div class="card-grid">
+          <article id="plantbuddy" class="card" aria-labelledby="plantbuddy-title">
+            <h3 id="plantbuddy-title">PlantBuddy</h3>
+            <p class="card-tag">Teamkonzept</p>
+            <p>
+              Ein Konzept für die gemeinsame Pflanzenpflege in WGs und Büros: Wer giesst wann,
+              welche Pflanze braucht was – damit nichts vergessen geht und die Arbeit fair verteilt ist.
+            </p>
+          </article>
+          <article id="homelab" class="card" aria-labelledby="homelab-title">
+            <h3 id="homelab-title">Homelab</h3>
+            <p class="card-tag">Praxisprojekt</p>
+            <p>
+              Eine eigene Infrastruktur auf Basis von Proxmox mit getrennten Netzen für interne
+              Dienste, Gameserver und Backups – um Virtualisierung und Netzwerksegmentierung praktisch anzuwenden.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section section-alt" aria-labelledby="skills-title">
+      <div class="container">
+        <h2 id="skills-title">Skills</h2>
+        <ul class="skill-list">
+          <li>Kundenbetreuung und Verkauf im Softwarebereich</li>
+          <li>Requirements Engineering <a href="#plantbuddy">(siehe PlantBuddy)</a></li>
+          <li>Netzwerksegmentierung <a href="#homelab">(siehe Homelab)</a></li>
+          <li>Grundlagen in HTML, CSS und JavaScript</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="ueber-mich" class="section" aria-labelledby="ueber-mich-title">
+      <div class="container">
+        <h2 id="ueber-mich-title">Über mich</h2>
+        <p>
+          Ich komme aus dem kaufmännischen Bereich und habe Erfahrung in der Kundenbetreuung
+          und im Softwareverkauf. Heute arbeite ich als Kundenbetreuer Business Software
+          bei der Informaticon AG.
+        </p>
+      </div>
+    </section>
+
+    <section id="hobbys" class="section section-alt" aria-labelledby="hobbys-title">
+      <div class="container">
+        <h2 id="hobbys-title">Hobbys</h2>
+        <p>
+          Im Nachwuchs der LV Thun war ich im Sprint aktiv. Heute bin ich gerne beim Wandern
+          unterwegs und reise.
+        </p>
+      </div>
+    </section>
+
+    <section id="kontakt" class="section" aria-labelledby="kontakt-title">
+      <div class="container">
+        <h2 id="kontakt-title">Kontakt</h2>
+        <p>Ein beruflicher Profil-Link folgt in Kürze.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year">2026</span> Alessandro</p>
+    </div>
+  </footer>
+</body>
+</html>
