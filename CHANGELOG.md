@@ -6,7 +6,8 @@
 
 - Bestehende PlantBuddy-Karte (`#plantbuddy`) zu einem Fallbeispiel erweitert, gegliedert in «Ausgangslage», «Mein Beitrag», «Von der Ausgangslage zur Anforderung» und «Ergebnis und Beleg» (je `section` mit `h4` unter dem `h3` der Karte).
 - Ausgangslage mit den belegten Angaben: Modul WPR1, Teamkonzept für eine App zur gemeinsamen Pflanzenpflege in WGs und Büros, Teamarbeit umfasste Projektauftrag, Systemziele und Grobanforderungen.
-- Ergebnis als erarbeitetes App-Konzept beschrieben (keine umgesetzte App).
+- Ergebnis als erarbeitetes App-Konzept beschrieben.
+- Präzisierung nach Commit 423d11e: Die unbelegte Problembeschreibung («Wo sich mehrere Personen Pflanzen teilen, ist oft unklar, …») ist jetzt als Projektziel formuliert («PlantBuddy soll WGs und Büros dabei unterstützen, die Zuständigkeiten für die gemeinsame Pflanzenpflege zu organisieren.»). «Ergebnis der Teamarbeit ist ein erarbeitetes App-Konzept. Eine umgesetzte App gibt es nicht.» wurde zu «Im Modul WPR1 haben wir im Team ein App-Konzept erarbeitet.» zusammengefasst.
 - Fehlende Inhalte als klar formulierte Platzhalter in normalem Text (`.placeholder`), ohne Links oder Bedienelemente.
 - CSS: Fallbeispiel-Karte nutzt ab 48rem die volle Rasterbreite, Teilabschnitte zweispaltig; mobil alles untereinander. Stil für Platzhalter ergänzt.
 
