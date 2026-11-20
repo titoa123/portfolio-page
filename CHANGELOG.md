@@ -1,5 +1,38 @@
 # Changelog
 
+## 2026-11-20 – Arbeitspaket 3.1 – Projektkategorien vorbereiten
+
+### Was
+
+- Die beiden Projektkarten in `index.html` haben ein `data-category`-Attribut erhalten: PlantBuddy `data-category="studium"`, Homelab `data-category="praxis"`.
+- Sichtbare Inhalte, Layout und CSS sind unverändert. Die Labels auf den Karten bleiben «Teamkonzept · Fallbeispiel» (PlantBuddy) und «Praxisprojekt» (Homelab).
+
+### Warum
+
+- `data-*`-Attribute speichern Zusatzinformationen direkt am HTML-Element, ohne die Darstellung oder die Semantik zu verändern.
+- JavaScript kann den Wert über `element.dataset.category` lesen, CSS und `querySelectorAll` über den Attributselektor `[data-category="…"]`.
+- Ein fester, maschinenlesbarer Wert ist für einen Filter zuverlässiger als der sichtbare Text, der sich ändern kann.
+- Der JavaScript-Filter mit seinen Schaltflächen folgt in Arbeitspaket 3.2.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 1920 px:
+
+- Mit JavaScript: `document.getElementById('plantbuddy').dataset.category` ergibt `studium`, `…('homelab').dataset.category` ergibt `praxis`; `[data-category="studium"]` trifft nur PlantBuddy, `[data-category="praxis"]` nur Homelab.
+- Mit und ohne JavaScript: beide Karten vorhanden, mit gesetztem Attribut und sichtbar (Breite und Höhe grösser als 0, nicht ausgeblendet).
+- Bestehende Testreihe (143 Prüfungen, alle bestanden): u. a. führen die Skills-Links «Zum Projekt PlantBuddy» und «Zum Projekt Homelab» per Klick und per Tastatur, mit und ohne JavaScript, zu `#plantbuddy` bzw. `#homelab`; kein horizontales Scrollen; Überschriftenfolge ohne Sprünge.
+
+### Konzepte für die Prüfung
+
+- **`data-*`-Attribute und `dataset`:** `data-category` im HTML wird in JavaScript zu `element.dataset.category`.
+- **Trennung von Inhalt und Logik:** Der Filter stützt sich auf Metadaten statt auf sichtbaren Text.
+- **Progressive Enhancement:** Ohne JavaScript bleiben alle Karten sichtbar; der Filter in 3.2 ist eine Ergänzung.
+
+### Offene Punkte
+
+- Filter und Schaltflächen folgen in Arbeitspaket 3.2.
+- Das sichtbare Label von PlantBuddy lautet «Teamkonzept · Fallbeispiel», nicht «Studienprojekt»; klären, ob es für den Filter angeglichen werden soll.
+
 ## 2026-11-20 – Arbeitspaket 2.3 – Skills und Profil
 
 ### Was
