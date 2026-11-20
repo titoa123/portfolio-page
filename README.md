@@ -2,6 +2,8 @@
 
 Persönliches Portfolio für das Modul Web Engineering an der BFH, umgesetzt mit HTML, CSS und JavaScript ohne Framework und ohne Build-Schritt.
 
+Im Projektbereich lassen sich die Projekte nach Studium und Praxis filtern. Ohne JavaScript werden beide Projekte angezeigt.
+
 Live-Seite: <https://titoa123.github.io/portfolio-page/>
 
 ## Technologien
