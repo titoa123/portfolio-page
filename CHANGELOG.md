@@ -1,5 +1,50 @@
 # Changelog
 
+## 2026-11-20 – Arbeitspaket 2.3 – Skills und Profil
+
+### Was
+
+- Skills präzisiert: Jeder Skill hat jetzt eine eigene Überschrift (`h3`) und eine kurze, konkrete Beschreibung.
+  - **Kundenbetreuung und Softwareverkauf:** Erfahrung in der Kundenbetreuung und im Verkauf von Software, heute als Kundenbetreuer Business Software.
+  - **Requirements Engineering:** im Team Grobanforderungen für ein App-Konzept erarbeitet; Link «Zum Projekt PlantBuddy» (`#plantbuddy`). Der persönliche Beitrag bleibt im Fallbeispiel offen.
+  - **Virtualisierung und Netzwerksegmentierung:** eigene Dienste mit Proxmox betreiben und interne Dienste von öffentlich erreichbaren Gameservern trennen; Link «Zum Projekt Homelab» (`#homelab`). Bisher stand hier nur «Netzwerksegmentierung».
+  - **Grundlagen in HTML, CSS und JavaScript:** mit diesem Portfolio als Beispiel (ohne Framework umgesetzt).
+- Linktexte von «(siehe PlantBuddy)» / «(siehe Homelab)» zu «Zum Projekt PlantBuddy» / «Zum Projekt Homelab» geändert, damit sie auch ohne den umgebenden Text verständlich sind.
+- CSS: Skills als Liste ohne Aufzählungszeichen, mobil untereinander und ab 48rem zweispaltig, jeweils als helle Kachel mit Akzentrand.
+- «Über mich» und «Kontakt» geprüft und unverändert gelassen: «Über mich» enthält bereits die bestätigten Angaben (kaufmännischer Hintergrund, Erfahrung in Kundenbetreuung und Softwareverkauf, Kundenbetreuer Business Software bei der Informaticon AG). Der Kontaktbereich enthält nur Text und keinen funktionslosen Link.
+
+### Warum
+
+- Kurze, konkrete Skills mit Verweis auf ein Projekt sind glaubwürdiger als eine reine Stichwortliste.
+- Es werden keine Erfahrungsjahre oder Kompetenzstufen genannt, weil dafür keine Belege vorliegen.
+- Studienbezeichnung und Profil-Link sind im Projekt weiterhin nicht bestätigt und wurden deshalb nicht ergänzt.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 1920 px, jeweils mit aktiviertem und deaktiviertem JavaScript (143 automatisierte Prüfungen, alle bestanden):
+
+- Skills: 4 Einträge, bei 320 px untereinander, ab 768 px zweispaltig; Überschriften und Texte mindestens 16 px ohne Überlauf; keine Erfahrungsjahre, Stufen oder Prozentangaben im Text.
+- Skills-Links per Maus (Klick) und per Tastatur (Tab bis zum Link, sichtbarer Fokusrahmen, Enter) mit und ohne JavaScript: «Zum Projekt PlantBuddy» führt zu `#plantbuddy`, «Zum Projekt Homelab» zu `#homelab`; der Kartentitel liegt jeweils sichtbar unter der fixierten Kopfzeile.
+- Kontakt: kein Link im Abschnitt (kein funktionsloser Platzhalter).
+- Überschriftenfolge h1 → h2 → h3 → h4 ohne Sprünge, genau ein `h1`; alle 11 Links per Tab erreichbar mit sichtbarem Fokus.
+- Kein horizontales Scrollen; Prüfungen aus den Arbeitspaketen 1, 2.1 und 2.2 (PlantBuddy, Homelab, Navigation, Sprunglink, Laden von CSS/Modul, keine Browserfehler) weiterhin bestanden.
+- Sichtprüfung des Skills-Bereichs bei 320 px (JS an), 768 px (JS an) und 1920 px (JS aus).
+- Kein manueller Screenreader-Test.
+
+### Konzepte für die Prüfung
+
+- **Aussagekräftige Linktexte:** Ein Link soll auch ausserhalb des Satzes verständlich sein (z. B. in einer Linkliste eines Screenreaders).
+- **Überschriften in Listeneinträgen:** `h3` pro Skill macht den Bereich per Überschriftennavigation zugänglich.
+- **Belegte Aussagen:** Kompetenzen über konkrete Projekte belegen statt über Selbsteinschätzungen wie Stufen oder Jahre.
+- **Interne Verlinkung mit Ankern:** Skills verweisen per Fragment-Link (`#id`) auf die passende Projektkarte; funktioniert ohne JavaScript.
+
+### Offene Punkte
+
+- **Beruflicher Profil-Link** (z. B. LinkedIn): nicht bestätigt – im Abschnitt Kontakt ergänzen, sobald er bestätigt ist.
+- **Genaue Studienbezeichnung:** geht aus den Projektunterlagen nicht hervor – bei Bedarf in «Über mich» ergänzen.
+- Manueller Screenreader-Test steht weiterhin aus.
+- Änderungen aus 2.1 bis 2.3 sind nur lokal committet und noch nicht veröffentlicht.
+
 ## 2026-11-20 – Arbeitspaket 2.2 – Homelab-Fallbeispiel
 
 ### Was
