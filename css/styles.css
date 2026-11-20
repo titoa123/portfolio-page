@@ -82,6 +82,11 @@ a:hover {
   color: var(--color-accent-dark);
 }
 
+/* hidden-Attribut hat Vorrang vor display-Regeln (z. B. Flex/Grid) */
+[hidden] {
+  display: none !important;
+}
+
 /* Sichtbarer Tastaturfokus */
 :focus-visible {
   outline: var(--focus-ring);
@@ -201,6 +206,53 @@ section {
 
 .section-alt {
   background: var(--color-bg-alt);
+}
+
+/* Projektfilter */
+.project-filter {
+  margin-bottom: var(--space-l);
+}
+
+.project-filter-label {
+  margin-bottom: var(--space-s);
+  font-weight: 600;
+}
+
+.project-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+.filter-button {
+  min-height: 2.75rem;
+  padding: var(--space-s) var(--space-m);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font: inherit;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background: var(--color-bg-alt);
+}
+
+/* Aktiver Zustand: Füllung plus Unterstreichung und Fettschrift (nicht nur Farbe) */
+.filter-button[aria-pressed="true"] {
+  background: var(--color-accent);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+.project-filter-status {
+  margin: var(--space-s) 0 0;
+  font-size: 0.875rem;
+  color: var(--color-muted);
 }
 
 /* Projektkarten: mobil untereinander */

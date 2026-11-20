@@ -43,10 +43,22 @@
     <section id="projekte" class="section" aria-labelledby="projekte-title">
       <div class="container">
         <h2 id="projekte-title">Projekte</h2>
+
+        <!-- Wird erst von js/main.js eingeblendet; ohne JavaScript bleiben alle Karten sichtbar. -->
+        <div class="project-filter" data-project-filter hidden>
+          <p class="project-filter-label" id="project-filter-label">Projekte filtern</p>
+          <div class="project-filter-buttons" role="group" aria-labelledby="project-filter-label">
+            <button type="button" class="filter-button" data-filter="alle" aria-pressed="true">Alle</button>
+            <button type="button" class="filter-button" data-filter="studium" aria-pressed="false">Studium</button>
+            <button type="button" class="filter-button" data-filter="praxis" aria-pressed="false">Praxis</button>
+          </div>
+          <p class="project-filter-status" role="status" data-filter-status></p>
+        </div>
+
         <div class="card-grid">
           <article id="plantbuddy" class="card card-case" data-category="studium" aria-labelledby="plantbuddy-title">
             <h3 id="plantbuddy-title">PlantBuddy</h3>
-            <p class="card-tag">Teamkonzept · Fallbeispiel</p>
+            <p class="card-tag">Studienprojekt · Teamkonzept</p>
             <p>
               Ein Konzept für die gemeinsame Pflanzenpflege in WGs und Büros: Wer giesst wann,
               welche Pflanze braucht was – damit nichts vergessen geht und die Arbeit fair verteilt ist.

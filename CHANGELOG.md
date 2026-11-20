@@ -1,5 +1,56 @@
 # Changelog
 
+## 2026-11-20 – Arbeitspaket 3.2 – Projektfilter
+
+### Was
+
+- Label von PlantBuddy von «Teamkonzept · Fallbeispiel» zu «Studienprojekt · Teamkonzept» geändert; Homelab behält «Praxisprojekt».
+- Im Projektbereich drei Filter-Schaltflächen «Alle», «Studium» und «Praxis» ergänzt (native `<button type="button">` in einer `role="group"` mit sichtbarer Beschriftung «Projekte filtern»). Standardmässig ist «Alle» aktiv.
+- `js/main.js`: Der Filter liest `dataset.category` der Karten und blendet sie mit dem `hidden`-Attribut ein oder aus. `aria-pressed` zeigt den aktiven Filter an; ein Statusbereich (`role="status"`) meldet z. B. «1 von 2 Projekten angezeigt». Der Fokus bleibt auf der betätigten Schaltfläche.
+- Der Filterbereich steht im HTML mit `hidden` und wird erst nach erfolgreicher Initialisierung eingeblendet. Ohne JavaScript sind keine Filter zu sehen und alle Karten sichtbar.
+- Sprungziele: Führt ein interner Link (z. B. «Zum Projekt PlantBuddy») zu einer ausgeblendeten Karte, setzt ein Klick-Handler den Filter vor dem Sprung auf «Alle» zurück. Für Fragmente, die über die Adresszeile gesetzt werden, übernimmt das ein `hashchange`-Handler.
+- CSS: globale Regel `[hidden] { display: none !important; }`, damit `display`-Regeln das Attribut nicht übersteuern. Aktiver Zustand mit Füllung, Unterstreichung und Fettschrift, damit er nicht nur über Farbe erkennbar ist. Schaltflächen mindestens 2.75rem hoch.
+
+### Warum
+
+- Mit einem Filter finden Besucherinnen und Besucher Projekte nach Kategorie; das sichtbare Label passt jetzt zur Filterbezeichnung «Studium».
+- Native Schaltflächen sind ohne Zusatzaufwand per Tab, Enter und Leertaste bedienbar.
+- Funktionslose Bedienelemente ohne JavaScript werden vermieden (Progressive Enhancement).
+- Sprunglinks dürfen nicht auf ausgeblendete Inhalte führen.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless), Filter-Testreihe bei 320, 768 und 1920 px (72 Prüfungen, alle bestanden):
+
+- Standardansicht: Filter sichtbar, «Alle» mit `aria-pressed="true"`, beide Karten sichtbar, Status «2 von 2 Projekten angezeigt», Statusbereich mit `role="status"`, neues PlantBuddy-Label.
+- Klick auf «Studium», «Praxis» und zurück zu «Alle»: richtige Karte(n) sichtbar, ausgeblendete Karte mit `hidden` und `display: none`, `aria-pressed` und Status korrekt, Fokus bleibt auf der Schaltfläche, kein horizontales Scrollen.
+- Aktiver Zustand ohne Farbe erkennbar: nur die aktive Schaltfläche ist unterstrichen und fett.
+- Tastatur: Tab zu «Alle» mit sichtbarem Fokusrahmen, Tab + Enter auf «Studium», Tab + Leertaste auf «Praxis», Shift+Tab + Leertaste zurück auf «Alle».
+- Skills-Links bei ausblendendem Filter, per Maus und per Tastatur (Tab + Enter): «Praxis» + «Zum Projekt PlantBuddy» und «Studium» + «Zum Projekt Homelab» setzen den Filter auf «Alle»; die Zielkarte ist sichtbar unter der Kopfzeile, das Fragment ist gesetzt.
+- Fragment `#homelab` über `location.hash` bei aktivem Filter «Studium»: Filter wird zurückgesetzt, Karte sichtbar.
+- Direktaufruf mit `#plantbuddy` und `#homelab`: beide Karten sichtbar, Ziel unter der Kopfzeile.
+- Keine Browserfehler.
+- Ohne JavaScript: Filterbereich verborgen, keine sichtbaren Schaltflächen, beide Karten sichtbar, Direktaufruf beider Fragmente funktioniert.
+- Bestehende Testreihe erneut ausgeführt (143 Prüfungen, alle bestanden); die Tab-Prüfung zählt jetzt Links und sichtbare Schaltflächen (14 Tab-Stopps mit sichtbarem Fokus).
+- Sichtprüfung der Filterleiste bei 768 px mit Fokus auf «Alle».
+- Kein manueller Screenreader-Test; ob die Statusmeldung tatsächlich angesagt wird, ist ungeprüft.
+
+### Konzepte für die Prüfung
+
+- **`dataset` und `hidden`:** Kategorie aus `data-category` lesen, Sichtbarkeit über das `hidden`-Attribut steuern.
+- **`aria-pressed`:** kennzeichnet Umschalt-Schaltflächen und ihren Zustand für Hilfstechnologien.
+- **Live-Region (`role="status"`):** meldet Änderungen unaufdringlich, ohne den Fokus zu verschieben.
+- **Event Delegation:** ein Listener auf dem Filterbereich bzw. dem Dokument statt eines Listeners pro Element.
+- **Reihenfolge von Ereignissen:** Der `click`-Handler läuft vor dem Standard-Sprung des Links; `hashchange` deckt andere Wege ab.
+- **Progressive Enhancement:** Filter erst nach erfolgreicher Initialisierung einblenden.
+- **CSS-Spezifität und `!important`:** `[hidden]` sicher gegen `display`-Regeln durchsetzen.
+
+### Offene Punkte
+
+- Manueller Screenreader-Test (Ansage von `aria-pressed` und Statusmeldung) steht aus.
+- Prüfung in weiteren Browsern (Firefox, Safari) steht aus.
+- README «Struktur»/«Technologien» erwähnt den Filter noch nicht – separat nachführen.
+
 ## 2026-11-20 – Arbeitspaket 3.1 – Projektkategorien vorbereiten
 
 ### Was
@@ -30,8 +81,8 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 192
 
 ### Offene Punkte
 
-- Filter und Schaltflächen folgen in Arbeitspaket 3.2.
-- Das sichtbare Label von PlantBuddy lautet «Teamkonzept · Fallbeispiel», nicht «Studienprojekt»; klären, ob es für den Filter angeglichen werden soll.
+- ~~Filter und Schaltflächen folgen in Arbeitspaket 3.2.~~ Erledigt in Arbeitspaket 3.2.
+- ~~Das sichtbare Label von PlantBuddy lautet «Teamkonzept · Fallbeispiel», nicht «Studienprojekt»; klären, ob es für den Filter angeglichen werden soll.~~ Erledigt in Arbeitspaket 3.2 (Label «Studienprojekt · Teamkonzept»).
 
 ## 2026-11-20 – Arbeitspaket 2.3 – Skills und Profil
 
