@@ -1,5 +1,45 @@
 # Changelog
 
+## 2026-11-20 – Arbeitspaket 2.2 – Homelab-Fallbeispiel
+
+### Was
+
+- Homelab-Karte (`#homelab`) überarbeitet und für die öffentliche Seite auf einen kurzen Überblick vereinfacht: ein Absatz dazu, woran ich arbeite und welche Themen das Projekt abdeckt (Proxmox, Virtualisierung, Netzwerke, Datensicherung, Trennung von internen Diensten und öffentlich erreichbaren Gameservern).
+- Vereinfachung: Eine erste Fassung (Commit 6a5cecd) enthielt die Unterabschnitte «Ausgangslage», «Architekturentscheidung», «Mein Beitrag» und «Ergebnis», eine vereinfachte Netzgrafik und zwei Platzhalter. Diese Teile wurden wieder entfernt, ebenso die nicht mehr verwendeten CSS-Regeln (Zonen-Grafik, `.case-step-wide`, Zonenfarben).
+- Die Karte nutzt weiterhin `.card-case` und steht damit wie PlantBuddy über die volle Rasterbreite.
+- Sprungziel `#homelab` und der Link aus dem Skills-Bereich bleiben unverändert.
+
+### Warum
+
+- Die öffentliche Portfolio-Seite soll einen kurzen Überblick über das Projekt geben. Technische Details zum eigenen Setup bleiben privat.
+- Ein Überblick ohne Netzwerkaufbau braucht weder eine Architekturgrafik noch Platzhalter für Belege zur Netztrennung.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 1920 px, jeweils mit aktiviertem und deaktiviertem JavaScript (113 automatisierte Prüfungen, alle bestanden):
+
+- Homelab-Karte: genau ein Absatz in 16 px ohne Textüberlauf, kein Element ragt über den Seitenrand, keine Grafik, keine Platzhalter und keine Unterabschnitte mehr; Text enthält Proxmox, Datensicherung und die Trennung von internen Diensten und öffentlich erreichbaren Gameservern; Karte über die volle Rasterbreite.
+- Kein horizontales Scrollen auf der ganzen Seite.
+- Überschriftenfolge h1 → h2 → h3 → h4 ohne Sprünge (h4 nur noch bei PlantBuddy), genau ein `h1`.
+- Skills-Link «(siehe Homelab)» springt zu `#homelab`, der Kartentitel liegt sichtbar unter der fixierten Kopfzeile; ebenso «(siehe PlantBuddy)».
+- PlantBuddy unverändert: Element-Screenshots bei 320 px (JS an), 768 px (JS an) und 1920 px (JS aus) sind byte-identisch mit den Aufnahmen vor der Überarbeitung; Prüfungen aus 2.1 bestanden.
+- Prüfungen aus Arbeitspaket 1 (Laden von CSS/Modul, keine Browserfehler, Navigation, Sprunglink zum Hauptinhalt, Tastaturfokus) bestanden.
+- Zugänglichkeit nur automatisiert mit Playwright geprüft: Überschriftenebenen und -reihenfolge aus dem DOM, Tab-Reihenfolge aller Links mit sichtbarem Fokusrahmen (mindestens 2 px Outline), Funktion der Sprunglinks per Tastatur und Darstellung ohne JavaScript. Ein manueller Test mit einem Screenreader wurde nicht durchgeführt.
+- Sichtprüfung der gekürzten Homelab-Karte bei 320 px (JS an), 768 px (JS an) und 1920 px (JS aus).
+
+### Konzepte für die Prüfung
+
+- **Zielgruppengerechte Inhalte:** Eine öffentliche Seite zeigt Themen und Kompetenzen, nicht die Konfiguration der eigenen Infrastruktur.
+- **Datensparsamkeit:** Keine Angaben zu Netzwerkaufbau, Adressen, Hostnamen oder Diensten des eigenen Setups veröffentlichen.
+- **Netzwerksegmentierung (als Thema):** Interne Dienste und öffentlich erreichbare Dienste werden voneinander getrennt.
+- **Wartbares CSS:** Nach dem Entfernen von Inhalten auch die ungenutzten Regeln und Variablen entfernen.
+
+### Offene Punkte
+
+- Ein manueller Screenreader-Test der Seite steht noch aus.
+- PlantBuddy-Platzhalter aus 2.1 bleiben offen.
+- Änderungen aus 2.1 und 2.2 sind nur lokal committet und noch nicht veröffentlicht.
+
 ## 2026-11-20 – Arbeitspaket 2.1 – PlantBuddy-Fallbeispiel
 
 ### Was
