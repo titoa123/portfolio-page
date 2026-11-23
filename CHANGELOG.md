@@ -1,5 +1,66 @@
 # Changelog
 
+## 2026-11-23 – Überarbeitung Ü4 – Texte straffen
+
+### Was
+
+Fünf Texte angepasst. Die Projektbeschreibungen von PlantBuddy (Ü2) und Homelab bleiben unverändert.
+
+- **Einstieg:** «Ich arbeite als Kundenbetreuer für Business Software. Hier zeige ich zwei Projekte aus Studium und Praxis: das App-Konzept PlantBuddy und mein Homelab.» Der Link «Projekte ansehen» bleibt.
+- **Skill «Kundenbetreuung und Softwareverkauf»:** «Erfahrung in der Betreuung von Kundinnen und Kunden und im Verkauf von Software.»
+- **Skill «Virtualisierung und Netzwerksegmentierung»:** «Praktische Erfahrung mit Proxmox und der Trennung von Netzbereichen im eigenen Homelab.»
+- **Über mich:** «Ich komme aus dem kaufmännischen Bereich und arbeite heute als Kundenbetreuer Business Software bei der Informaticon AG.»
+- **Hobbys:** «Im Nachwuchs der LV Thun war ich im Sprint aktiv. Heute wandere und reise ich gerne.»
+
+### Warum
+
+- Der alte Einstieg sprach von «baue eigene Projekte», obwohl PlantBuddy ein Konzept ist. «Segmentiertes Homelab» ging tiefer ins Setup als nötig. Der neue Einstieg sagt, was die Seite zeigt.
+- Wiederholungen entfernt:
+  - Der Skill zu Kundenbetreuung nannte die heutige Stelle, die schon in «Über mich» steht.
+  - Der Skill zur Virtualisierung wiederholte den Homelab-Text fast wörtlich.
+  - «Über mich» wiederholte Kundenbetreuung und Softwareverkauf aus den Skills.
+- Der Hobbys-Satz liest sich flüssiger.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 1440 px mit JavaScript sowie bei 320 px ohne JavaScript. Insgesamt 79 Prüfungen, alle bestanden:
+
+- **Texte:** Alle fünf neuen Texte stimmen wörtlich. Die Projekttexte von PlantBuddy und Homelab sind unverändert. Die alten Formulierungen sind nicht mehr vorhanden, und nirgends steht ein Eszett.
+- **Umbrüche und Lesbarkeit:** kein horizontaler Überlauf, kein Absatz breiter als sein Container, Lead weiterhin 18 px. Sichtprüfung des ganzseitigen Screenshots bei 320 px.
+
+  | Breite | Einstieg | Skill Kundenbetreuung | Skill Virtualisierung | Über mich | Hobbys |
+  |---|---|---|---|---|---|
+  | 320 px | 6 Zeilen | 3 Zeilen | 4 Zeilen | 5 Zeilen | 3 Zeilen |
+  | 768 px | 3 Zeilen | 3 Zeilen | 3 Zeilen | 2 Zeilen | 1 Zeile |
+  | 1440 px | 3 Zeilen | 2 Zeilen | 2 Zeilen | 1 Zeile mit rund 120 Zeichen | 1 Zeile |
+- **Einstiegsknopf:** «Projekte ansehen» per Klick und per Enter führt zu `#projekte`, 17–18 px unter der Kopfzeile bzw. dem Fensterrand.
+- **Skills-Links:** «Zum Projekt PlantBuddy» und «Zum Projekt Homelab» führen zur jeweiligen Karte (16–18 px).
+- **Filter:**
+  - «Studium», «Praxis» und «Alle» zeigen die richtigen Karten mit passender Statusmeldung.
+  - Bei aktivem Filter «Praxis» führt der Skills-Link zu PlantBuddy und blendet die Karte wieder ein.
+- **Ohne JavaScript bei 320 px:**
+  - Filter verborgen, beide Karten sichtbar.
+  - Einstiegsknopf und Skills-Links springen korrekt.
+  - Der Sprunglink setzt den Fokus auf `main`.
+  - Alle fünf Navigationslinks führen zu ihrem Ziel.
+- **Keine Browserfehler.**
+- **Regression:** Testreihen aus Ü1 (1383 Prüfungen), Ü2 (144) und Ü3 (112), alle bestanden.
+- **Nicht geprüft:** Firefox, Safari, Screenreader (folgt in Arbeitspaket 4).
+
+### Konzepte für die Prüfung
+
+- **Texte als Ganzes lesen:** Jede Aussage steht an einer Stelle; Skills verweisen auf Projekte, statt sie zu wiederholen.
+- **Inklusive Sprache:** «Kundinnen und Kunden» statt der rein männlichen Form.
+
+### Offene Punkte
+
+- **Offene Profilangaben (unverändert aus Ü3):** genaue Studienbezeichnung und ein öffentlicher Kontaktweg.
+- **Bewusst nicht vereinheitlicht:** Der Einstieg sagt «Kundenbetreuer für Business Software», «Über mich» «Kundenbetreuer Business Software». Beide Formulierungen sind so vorgegeben.
+- **In Ü5 (Layout):**
+  - Zeilenbreiten, zum Beispiel «Über mich» bei 1440 px mit rund 120 Zeichen in einer Zeile;
+  - Kartenlayout und Abstände;
+  - der um 7 px abgeschnittene Fokusrahmen der Filter-Schaltflächen bei 375 × 700 px.
+
 ## 2026-11-23 – Überarbeitung Ü3 – Kontakt und Profil bereinigen
 
 ### Was
