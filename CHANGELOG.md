@@ -1,5 +1,87 @@
 # Changelog
 
+## 2026-11-23 – Überarbeitung Ü5 – Karten und Abstände abstimmen
+
+### Was
+
+- **Projektkarten:**
+  - Das Raster nutzt `repeat(auto-fit, minmax(min(100%, 24rem), 1fr))`.
+    - Ab rund 1024 px stehen beide Karten nebeneinander, darunter untereinander.
+    - Nach dem Filtern nutzt die einzelne sichtbare Karte die volle Breite, ohne leere Spalte.
+  - Die Klasse `card-case` mit `grid-column: 1 / -1` ist entfernt (HTML und CSS).
+- **Einheitlicher Kartenkopf:**
+  - Titel und Kategorie stehen enger zusammen (`--space-xs`), die Kurzbeschreibung folgt mit `--space-m`.
+  - Das letzte Element einer Karte hat keinen Aussenabstand mehr, dadurch sind Innenabstand oben und unten gleich (je 33 px).
+  - Die Karten einer Zeile werden gleich hoch, Karten untereinander dürfen unterschiedlich hoch sein.
+- **Zeilenlänge:** Fliesstext in Projektkarten sowie in «Über mich» und «Hobbys» ist mit `max-inline-size: 65ch` begrenzt. Karten und Abschnitte bleiben breit.
+- **Abstände:**
+  - Der Einstieg hat unten nur noch `--space-m`. Der Abstand vom Knopf «Projekte ansehen» zur Überschrift «Projekte» ist dadurch kleiner: 48 px statt 96 px mobil, 80 px statt 128 px ab 768 px.
+  - Neue Klasse `section-compact` für «Über mich» und «Hobbys»: ab 768 px Innenabstand `--space-l` (32 px) statt `--space-xl` (64 px).
+- **Fokusrahmen der Filter-Schaltflächen:**
+  - Der Rahmen liegt bei `:focus-visible` innen (`outline-offset: -3px`) statt 3 px ausserhalb.
+  - Ein weisser Innenstreifen (`box-shadow: inset`) trennt ihn von der grünen Füllung der aktiven Auswahl.
+  - Zusätzlich lässt `scroll-margin-block: var(--space-m)` etwas Luft zum Fensterrand, wenn der Browser beim Fokus scrollt.
+- Texte und Filterlogik sind unverändert.
+
+### Befund zum Fokusrahmen
+
+- Nachgestellt bei 375 × 700 px vor der Änderung: Beim Vorwärts-Tabben lag die Unterkante aller drei Filter-Schaltflächen genau am Fensterrand (700 von 700 px). Der Fokusrahmen (3 px Breite plus 3 px Abstand) ragte 6 px darüber hinaus.
+- Kein Container schneidet ab: Kein Vorfahre hat ein `overflow` ausser `visible`. Ursache ist der Fensterrand. Chromium scrollt beim Fokus nicht, solange die Schaltfläche selbst vollständig sichtbar ist, und berücksichtigt dabei weder den Rahmen ausserhalb noch `scroll-margin`.
+- Varianten verglichen mit Fensterhöhen 560–760 px in 1-px-Schritten, Breite 375 und 768 px, Tab und Shift+Tab (je 603 Fokusschritte):
+
+  | Variante | Abgeschnittene Fokusschritte bei Tab |
+  |---|---|
+  | alter Stand | 156 von 603, bis 7 px |
+  | nur `scroll-margin` | 18 von 603, bis 6 px |
+  | Rahmen innen plus `scroll-margin` | 0 |
+
+  Bei Shift+Tab gab es in allen Varianten 0 abgeschnittene Schritte.
+
+### Warum
+
+- **Kartenraster:** Mit gleich aufgebauten Karten nebeneinander lassen sich die Projekte leichter vergleichen. Eine gefilterte Einzelkarte soll keine leere Spalte hinterlassen.
+- **Zeilenlänge:** Zeilen mit über 100 Zeichen (vorher bis 112 in den Karten, 120 in «Über mich» bei 1440 px) sind schwer zu lesen.
+- **Abstände:** Abschnitte mit einem Satz brauchen keine 64 px Innenabstand.
+- **Fokusrahmen:** Ein Fokusindikator muss vollständig sichtbar sein. Liegt er innerhalb der Schaltfläche, ist er sichtbar, sobald die Schaltfläche es ist.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless):
+
+- **Layout bei 320 × 800, 375 × 700, 767, 768 und 1440 px, jeweils in den Filteransichten «Alle», «Studium» und «Praxis»** (125 Prüfungen, alle bestanden):
+  - Kein horizontaler Überlauf, Karten nie breiter als das Raster, Kartenabstände einheitlich (oben und unten je 33 px).
+  - Höchstens 65–70 Zeichen pro Zeile in Karten und «Über mich», zum Beispiel bei 1440 px rund 45/47 Zeichen in den Karten und rund 60 in «Über mich».
+  - Bei «Studium» und «Praxis» nutzt die einzelne Karte die volle Rasterbreite (1440 px: 1088 px).
+- **Tastatur bei 320, 375 × 700 und 768 px:**
+  - Tab und Shift+Tab erreichen alle drei Filter-Schaltflächen, und der Fokusrahmen liegt jeweils vollständig im sichtbaren Bereich, auch unter der fixierten Kopfzeile.
+  - Enter auf «Studium» und Leertaste auf «Praxis» filtern korrekt, der Fokus bleibt auf der Schaltfläche.
+  - Fokussierte, nicht aktive Schaltfläche (weiss mit orangem Rahmen) und aktive Auswahl (grün gefüllt, fett, unterstrichen, ohne Rahmen) unterscheiden sich.
+- **Höhen-Sweep:** Ergebnisse siehe Befund oben, insgesamt 2412 Fokusschritte für die neue Lösung, keiner abgeschnitten.
+- **Sichtprüfung:**
+  - ganzseitiger Screenshot bei 1440 px;
+  - Filterleiste bei 375 px mit Fokus auf einer nicht aktiven Schaltfläche;
+  - Fokus auf der aktiven Schaltfläche «Alle» (oranger Rand, weisser Innenstreifen, grüne Füllung).
+- **Regression:**
+  - Ü1: 1383 Prüfungen, unter anderem Kopfzeile, Tab/Shift+Tab, Sprungziele und Projektlinks bei aktivem Filter.
+  - Ü2: 144 Prüfungen, unter anderem beide Karten und Sprungziele ohne JavaScript bei 320, 768 und 1440 px.
+  - Ü3: 112 Prüfungen.
+  - Ü4: 79 Prüfungen, unter anderem Texte und Sprunglinks ohne JavaScript bei 320 px.
+  - Alle bestanden.
+- **Nicht geprüft:** Firefox, Safari, Screenreader (folgt in Arbeitspaket 4).
+
+### Konzepte für die Prüfung
+
+- **`repeat(auto-fit, minmax(min(100%, 24rem), 1fr))`:** responsives Raster ohne Media Query. `auto-fit` lässt leere Spuren wegfallen, `min(100%, …)` verhindert Überlauf auf schmalen Bildschirmen.
+- **`max-inline-size: 65ch`:** begrenzt die Zeilenlänge relativ zur Schriftgrösse.
+- **Fokus-Scrollen:** Browser scrollen fokussierte Elemente nur ins Bild, wenn ihr Rahmenkasten nicht sichtbar ist. Ein Fokusrahmen ausserhalb (`outline-offset` positiv) kann dabei abgeschnitten werden.
+- **WCAG 2.2, 2.4.7 «Focus Visible»:** Der Fokus ist sichtbar und unterscheidet sich vom ausgewählten Zustand.
+
+### Offene Punkte
+
+- In «Hobbys» steht bei 1440 px wegen der 65ch-Grenze das Wort «gerne.» allein auf der zweiten Zeile. Der Text bleibt wie in Ü4 festgelegt.
+- Die README-Aktualisierung (Technologien und Struktur) folgt in Ü6.
+- Die abschliessenden Tests in Firefox, Safari und mit Screenreader folgen in Arbeitspaket 4.
+
 ## 2026-11-23 – Überarbeitung Ü4 – Texte straffen
 
 ### Was
