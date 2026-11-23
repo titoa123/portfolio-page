@@ -1,5 +1,50 @@
 # Changelog
 
+## 2026-11-23 – Überarbeitung Ü1 – Mobile Kopfzeile und Sprungziele
+
+### Was
+
+- Die Kopfzeile scrollt unter 48rem (768 px) normal mit (`position: static`). Erst ab 48rem ist sie fixiert (`position: sticky`). Alle Navigationslinks bleiben auf jeder Breite sichtbar.
+- Die Regeln `scroll-margin-top: 6rem` auf `section` und `.card` sind entfernt und durch `scroll-padding-top` auf `html` ersetzt, damit sich keine Abstände doppeln:
+  - unter 48rem `1rem`, also nur etwas Luft über dem Ziel;
+  - ab 48rem die Höhe der einzeiligen Kopfzeile (`--header-height: 3.25rem`) plus `1rem`.
+- Es sind nur CSS-Regeln geändert. Texte, Projektkarten, Filter und JavaScript bleiben unverändert.
+
+### Warum
+
+- Bei 320 und 375 px war die fixierte Kopfzeile 122 px hoch, weil die Navigation auf zwei Zeilen umbricht. Beim Rückwärts-Tabben lagen die Links «Projekte ansehen» und «Zum Projekt PlantBuddy» samt Fokusrahmen teilweise darunter. Nach Sprüngen waren die oberen 25 px der Ziele verdeckt, weil der Sprungabstand von 96 px kleiner war als die Kopfzeile.
+- Ab 576 px passt die Navigation hier einzeilig neben den Namen. Der Breakpoint liegt beim bestehenden Breakpoint 48rem, damit Reserve für breitere Systemschriften und eine grössere Standardschrift bleibt und kein neuer Breakpoint dazukommt.
+- `scroll-padding-top` gilt für alle Sprungziele, auch für das Fokus-Scrollen per Tastatur, und funktioniert ohne JavaScript.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless). Insgesamt 1390 Prüfungen, alle bestanden:
+
+- **Vorher gemessen:** Kopfzeile 122 px bei 320 und 375 px. Beim Rückwärts-Tabben war die Oberkante des Fokusrahmens bei «Zum Projekt PlantBuddy» 22 px und bei «Projekte ansehen» 16–17 px verdeckt. Sprungziele lagen 25 px unter der Kopfzeile. Bei 1440 px stand 46 px Lücke unter der 51 px hohen Kopfzeile.
+- **Breitenscan 320–1920 px** in 4-px-Schritten:
+  - kein horizontaler Überlauf, alle Navigationslinks innerhalb des Viewports;
+  - unter 768 px ist die Kopfzeile statisch, ab 768 px fixiert, höchstens 52 px hoch, und der Sprungabstand ist grösser als die Kopfzeile.
+- **Tastatur und Sprünge bei 320, 375, 767, 768 und 1440 px:**
+  - Tab und Shift+Tab durch alle Links und Schaltflächen: Kein fokussiertes Element liegt unter der Kopfzeile. «Projekte ansehen» und «Zum Projekt PlantBuddy» sind samt Fokusrahmen vollständig sichtbar.
+  - Der Sprunglink zum Hauptinhalt wird sichtbar fokussiert, und Enter setzt den Fokus auf `main`.
+  - Navigation zu allen Abschnitten und die Skills-Links zu `#plantbuddy` und `#homelab`: Das Ziel liegt 16–18 px unter der Kopfzeile bzw. dem Fensterrand. Ausnahme sind die letzten Abschnitte, die wegen des Seitenendes tiefer stehen bleiben.
+  - Filter «Praxis» bzw. «Studium» blendet die Zielkarte aus, danach Klick auf den Projektlink: Der Filter springt auf «Alle», die Karte ist sichtbar und liegt 16–18 px unter der Kopfzeile. Gleiches Ergebnis für `#homelab` über `location.hash` und für den Direktaufruf mit `#plantbuddy`.
+- **Ohne JavaScript bei 320 und 1440 px:** Sprunglink, Navigation und Projektlinks springen mit demselben Abstand, kein Überlauf.
+- **Sichtprüfung** der Screenshots bei 320 und 768 px nach dem Sprung zu `#plantbuddy`.
+- **Nicht geprüft:** Firefox, Safari, Screenreader (folgt in Arbeitspaket 4).
+
+### Konzepte für die Prüfung
+
+- **`scroll-padding-top` und `scroll-margin-top`:** Das erste wirkt am Scroll-Container für alle Ziele, das zweite am einzelnen Ziel. Werden beide gesetzt, addieren sie sich.
+- **`position: sticky` erst ab einem Breakpoint:** Auf schmalen Bildschirmen kostet eine fixierte Kopfzeile zu viel Platz.
+- **WCAG 2.2, 2.4.11 «Focus Not Obscured (Minimum)»:** Fokussierte Elemente dürfen nicht von fixierten Inhalten verdeckt werden.
+- **Breakpoints in `rem`:** Sie wachsen mit der eingestellten Standardschriftgrösse mit.
+
+### Offene Punkte
+
+- Die README nennt unter «Technologien» noch `scroll-margin-top`. Das wird mit Überarbeitungspaket 5 (Dokumentation) angepasst.
+- Bei 375 px × 700 px schneidet der Fensterrand beim Tabben vorwärts den Fokusrahmen der Filter-Schaltflächen unten um 7 px ab, weil der Browser nur minimal scrollt. Die Schaltflächen bleiben sichtbar. Der Effekt bestand schon vorher und hängt nicht mit der Kopfzeile zusammen.
+
 ## 2026-11-20 – Arbeitspaket 3.2 – Projektfilter
 
 ### Was

@@ -32,8 +32,11 @@
   box-sizing: border-box;
 }
 
+/* Sprungabstand: mobil scrollt die Kopfzeile mit, darum nur etwas Luft über dem Ziel.
+   Ab 48rem kommt die Höhe der fixierten Kopfzeile dazu (siehe Media Query unten). */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--space-m);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -121,11 +124,8 @@ main:focus {
   transform: none;
 }
 
-/* Kopfzeile und Navigation */
+/* Kopfzeile und Navigation: mobil scrollt die Kopfzeile mit, erst ab 48rem ist sie fixiert */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
@@ -164,15 +164,6 @@ main:focus {
 .nav-list a:hover {
   color: var(--color-accent);
   text-decoration: underline;
-}
-
-/* Abschnitte: Platz für die Sticky-Navigation beim Springen */
-section {
-  scroll-margin-top: 6rem;
-}
-
-.card {
-  scroll-margin-top: 6rem;
 }
 
 .hero {
@@ -353,6 +344,21 @@ section {
 
 /* Ab Tablet: Karten nebeneinander */
 @media (min-width: 48rem) {
+  /* Hier passt die Navigation auf eine Zeile, die Kopfzeile bleibt oben stehen */
+  :root {
+    --header-height: 3.25rem; /* einzeilige Kopfzeile, rund 51px */
+  }
+
+  html {
+    scroll-padding-top: calc(var(--header-height) + var(--space-m));
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
