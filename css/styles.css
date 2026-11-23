@@ -268,39 +268,6 @@ main:focus {
   color: var(--color-accent);
 }
 
-/* Fallbeispiel innerhalb einer Projektkarte */
-.case-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-l);
-  margin-top: var(--space-l);
-  padding-top: var(--space-l);
-  border-top: 1px solid var(--color-border);
-}
-
-.case-step h4 {
-  margin: 0 0 var(--space-s);
-  font-size: 1.0625rem;
-}
-
-.case-step p:last-child,
-.case-step ul:last-child {
-  margin-bottom: 0;
-}
-
-.case-step ul {
-  margin: 0 0 var(--space-m);
-  padding-left: var(--space-l);
-}
-
-/* Platzhalter: normaler Text, klar als offen erkennbar */
-.placeholder {
-  padding: var(--space-s) var(--space-m);
-  border-left: 3px dashed var(--color-muted);
-  background: var(--color-bg-alt);
-  color: var(--color-muted);
-}
-
 /* Skills: mobil untereinander, ab 48rem zweispaltig */
 .skill-list {
   display: grid;
@@ -378,15 +345,5 @@ main:focus {
   /* Das längere Fallbeispiel nutzt die volle Breite */
   .card-case {
     grid-column: 1 / -1;
-  }
-
-  .case-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 64rem) {
-  .case-step {
-    max-width: 38rem;
   }
 }

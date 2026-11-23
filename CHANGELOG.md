@@ -1,5 +1,58 @@
 # Changelog
 
+## 2026-11-23 – Überarbeitung Ü2 – PlantBuddy auf belegte Inhalte kürzen
+
+### Was
+
+- Die PlantBuddy-Karte zeigt nur noch Titel, Label «Studienprojekt · Teamkonzept» und eine Kurzbeschreibung: «PlantBuddy entstand im Modul WPR1 als Teamkonzept für eine App, mit der WGs und Büros die gemeinsame Pflanzenpflege organisieren können. Im Team erarbeiteten wir den Projektauftrag, die Systemziele und die Grobanforderungen.»
+- Entfernt sind:
+  - die vier Unterabschnitte (Ausgangslage, Mein Beitrag, Von der Ausgangslage zur Anforderung, Ergebnis und Beleg);
+  - die drei sichtbaren Platzhalter;
+  - die Ankündigung des fehlenden Anforderungsbeispiels.
+- Unverändert bleiben die ID `plantbuddy`, `data-category="studium"`, der Skills-Link «Zum Projekt PlantBuddy» und die Klasse `card-case`.
+- In `css/styles.css` sind die dadurch ungenutzten Regeln entfernt: `.case-grid`, `.case-step` (auch in den Media Queries 48rem und 64rem) und `.placeholder`. `.card-case` bleibt, weil beide Karten sie nutzen. Das gemeinsame Kartenlayout folgt in Ü5.
+
+### Warum
+
+- Öffentlich sichtbare Platzhalter und ein angekündigtes, aber fehlendes Beispiel wirken unfertig.
+- Die Karte zeigt nur, was belegt ist. Fehlende Inhalte werden erst ergänzt, wenn sie vorliegen und freigegeben sind.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 1440 px, jeweils mit und ohne JavaScript. Insgesamt 150 Prüfungen, alle bestanden:
+
+- **Inhalt:** Der Kurzbeschreibungstext stimmt wörtlich, Label und Kategorie sind unverändert, kein Platzhalter und keine Ankündigung mehr im Seitentext.
+- **Überschriften:** genau eine `h1`, Folge ohne Sprünge (h1 → h2 → h3), keine `h4` mehr.
+- **Lesbarkeit:** Text 16 px in der normalen Textfarbe.
+  - Bei 320 px: 9 Zeilen mit rund 25 Zeichen, Kartenhöhe 413 px statt vorher 1734 px.
+  - Bei 768 px: 3 Zeilen mit rund 75 Zeichen.
+  - Bei 1440 px: 2 Zeilen mit rund 112 Zeichen.
+  - Sichtprüfung der Screenshots bei 320 und 1440 px.
+- **Kein horizontaler Überlauf** und keine Browserfehler.
+- **Filter:**
+  - «Studium» zeigt nur PlantBuddy, «Praxis» nur Homelab, «Alle» beide. `aria-pressed` und die Statusmeldung («1 von 2» bzw. «2 von 2 Projekten angezeigt») stimmen.
+  - Bei aktivem Filter «Praxis» führt der Skills-Link zu PlantBuddy, per Klick und per Enter: Der Filter springt auf «Alle», die Karte ist sichtbar und liegt 16–18 px unter der Kopfzeile bzw. dem Fensterrand, das Fragment ist `#plantbuddy`.
+- **Ohne JavaScript:** Filter verborgen, beide Karten sichtbar. `#plantbuddy` und `#homelab` sind per Direktaufruf und über die Skills-Links erreichbar (17–18 px Abstand).
+- **Regression:** Die Testreihe aus Ü1 (Kopfzeile, Tab/Shift+Tab, Sprungziele) wurde erneut ausgeführt, 1390 Prüfungen, alle bestanden.
+- **Nicht geprüft:** Firefox, Safari, Screenreader (folgt in Arbeitspaket 4).
+
+### Konzepte für die Prüfung
+
+- **Belegte Inhalte statt Platzhalter:** Öffentlich steht nur, was nachweisbar ist. Offenes wird intern im Changelog geführt.
+- **Toten CSS-Code entfernen:** Regeln nur löschen, wenn kein Element sie mehr nutzt. Das ist hier per Suche nach den Klassennamen geprüft.
+
+### Offene Punkte
+
+Offene Inhalte zu PlantBuddy. Sie werden erst öffentlich, wenn sie vorliegen und freigegeben sind; sie ersetzen die offenen Punkte aus Arbeitspaket 2.1:
+
+- **Persönlicher Beitrag:** welche Teile von Projektauftrag, Systemzielen oder Grobanforderungen ich im Team erarbeitet habe.
+- **Anforderungsbeispiel mit Prüfkriterium:** eine dokumentierte Anforderung aus den Grobanforderungen mit dem zugrunde liegenden Bedarf und einem daraus abgeleiteten Prüfkriterium.
+- **Veröffentlichbarer Beleg:** ein zur Veröffentlichung freigegebener Auszug aus den Projektunterlagen oder eine eigene Darstellung.
+
+Weitere offene Punkte:
+
+- Bei 1440 px läuft die Kurzbeschreibung mit rund 112 Zeichen pro Zeile, und unter dem Text bleibt mehr Abstand als oben (Rand des letzten Absatzes). Das wird in Ü4/Ü5 (Layout) behoben.
+
 ## 2026-11-23 – Überarbeitung Ü1 – Mobile Kopfzeile und Sprungziele
 
 ### Was
