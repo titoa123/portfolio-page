@@ -1,5 +1,54 @@
 # Changelog
 
+## 2026-11-23 – Überarbeitung Ü3 – Kontakt und Profil bereinigen
+
+### Was
+
+- Ein für diese Seite bestätigter öffentlicher Kontaktweg liegt nicht vor. Deshalb sind der Abschnitt «Kontakt» (`#kontakt`) mit dem Satz «Ein beruflicher Profil-Link folgt in Kürze.» und der Navigationslink «Kontakt» gemeinsam entfernt.
+- Die Meta-Beschreibung nennt «Kontakt» nicht mehr: «Portfolio von Alessandro: Projekte, Skills und Profil.»
+- «Über mich» ist unverändert, weil die genaue Studienbezeichnung nicht bestätigt ist.
+- Die Navigation hat jetzt fünf Einträge: Start, Projekte, Skills, Über mich, Hobbys. Letzter Abschnitt vor dem Footer ist «Hobbys».
+
+### Warum
+
+- Ein Abschnitt «Kontakt» ohne Kontaktweg verspricht etwas, das die Seite nicht einlöst.
+- Ins Profil kommen nur bestätigte und freigegebene Angaben.
+
+### Getestet
+
+Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 1440 px mit JavaScript sowie bei 320 px ohne JavaScript. Insgesamt 112 Prüfungen, alle bestanden:
+
+- **Verweise:**
+  - Die Navigation enthält genau Start, Projekte, Skills, Über mich und Hobbys.
+  - Alle internen Links (`href="#…"`) zeigen auf eine vorhandene ID.
+  - Keine externen Links.
+  - Im HTML gibt es keinen Verweis mehr auf `kontakt`, auch in der Suche über `index.html`, `css/`, `js/` und `README.md`.
+  - Im sichtbaren Text kommt «Kontakt» nicht mehr vor.
+- **Tastatur:** Jeder Navigationslink ist per Tab erreichbar, sichtbar und hat einen Fokusrahmen. Enter setzt das passende Fragment und scrollt zum Ziel: Start, Projekte und Skills liegen 0–18 px unter der Kopfzeile bzw. dem Fensterrand. «Über mich» und «Hobbys» bleiben wegen des Seitenendes tiefer im Bild.
+- **Ohne JavaScript bei 320 px:** Dieselben Navigationsprüfungen bestehen. Die Navigation bricht auf zwei Zeilen um und bleibt vollständig sichtbar (Sichtprüfung im Screenshot).
+- **Übergang zum Footer:** «Hobbys» (Hintergrund `--color-bg-alt`) grenzt ohne Lücke an den Footer mit Trennlinie. Sichtprüfung bei 320 px mit und ohne JavaScript.
+- **Ausserdem:** Überschriftenfolge ohne Sprünge, kein horizontaler Überlauf, keine Browserfehler und keine fehlgeschlagenen Anfragen.
+- **Regression:**
+  - Testreihe aus Ü1 ohne das entfernte Ziel `#kontakt`: 1383 Prüfungen, alle bestanden.
+  - Testreihe aus Ü2: 144 Prüfungen, alle bestanden. Es sind weniger Prüfungen, weil die Überschrift «Kontakt» wegfällt.
+- **Nicht geprüft:** Firefox, Safari, Screenreader (folgt in Arbeitspaket 4).
+
+### Konzepte für die Prüfung
+
+- **Keine toten Sprungziele:** Abschnitt und Navigationslink werden gemeinsam entfernt, danach wird nach Verweisen auf die alte ID gesucht.
+- **Sequenzielle Fokusnavigation:** Tab folgt der Reihenfolge im DOM. Ein Sprung per Enter verschiebt den Startpunkt für den nächsten Tab.
+
+### Offene Punkte
+
+Fehlende Profilangaben. Sie werden erst ergänzt, wenn sie bestätigt und zur Veröffentlichung freigegeben sind, und ersetzen die entsprechenden offenen Punkte aus Arbeitspaket 1 und 2.3:
+
+- **Öffentlicher Kontaktweg:** zum Beispiel ein beruflicher Profil-Link. Danach den Abschnitt «Kontakt» mit verständlichem Linktext und den Navigationslink wieder ergänzen.
+- **Genaue Studienbezeichnung:** danach in «Über mich» ergänzen.
+
+Weitere offene Punkte:
+
+- Die README erwähnt keinen Kontaktabschnitt, dort ist nichts anzupassen. Ihre Technologieliste wird in Überarbeitungspaket 5 aktualisiert.
+
 ## 2026-11-23 – Überarbeitung Ü2 – PlantBuddy auf belegte Inhalte kürzen
 
 ### Was
