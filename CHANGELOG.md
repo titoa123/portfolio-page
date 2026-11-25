@@ -1,5 +1,107 @@
 # Changelog
 
+## 2026-11-25 – Arbeitspaket 4.1 – Browser-Kompatibilität
+
+### Was
+
+- Die Seite ist in drei Browser-Engines getestet: Chromium, Firefox und WebKit. Grundlage ist der lokale Stand nach Ü6 (`eac0c35`).
+- Es wurde kein Darstellungs- oder Funktionsfehler der Seite gefunden. Code (`index.html`, `css/styles.css`, `js/main.js`) und README sind unverändert.
+- Fehlschläge in den ersten Läufen gehen auf die Testumgebung oder auf zu frühe Messungen zurück. Sie sind unten unter «Befunde» einzeln erklärt.
+
+### Getestete Browser und Engines
+
+Alle Tests liefen lokal mit `http-server` (wie im README beschrieben) und Playwright 1.49.1 unter Linux, headless:
+
+| Browser bzw. Engine | Version | Hinweis |
+|---|---|---|
+| Chromium | 131.0.6778.33 | Playwright-Build |
+| Firefox | 132.0 | Playwright-Build |
+| WebKit | 18.2 | Playwright-Build (WPE). Entspricht der Engine von Safari 18.2, ist aber kein Safari. |
+
+Echtes Safari ist nicht verfügbar, weil die Testumgebung kein macOS oder iOS hat.
+
+### Getestet
+
+**Neue Testreihe für 4.1**, in jeder Engine bei 320, 768, 1024 und 1440 px, zusätzlich bei 375 × 700 px:
+
+- **Laden und Darstellung:**
+  - `styles.css` und `main.js` laden mit HTTP 200. CSS ist angewendet, und JavaScript läuft (Filter eingeblendet, Jahr im Footer).
+  - Keine Konsolenfehler und keine fehlgeschlagenen Anfragen.
+  - Kein horizontaler Überlauf.
+  - Alle fünf Navigationslinks liegen im Fenster. Navigation und Kartentext haben mindestens 16 px.
+  - Kopfzeile unter 768 px statisch, ab 768 px fixiert und höchstens 52 px hoch.
+- **Karten:** Bei 1024 und 1440 px stehen beide Karten nebeneinander, bei 320 und 768 px untereinander. Nach dem Filtern nutzt die einzelne Karte die volle Rasterbreite, zum Beispiel 1088 px bei 1440 px.
+- **Filter:**
+  - Per Klick zeigen «Studium», «Praxis» und «Alle» die richtigen Karten.
+  - Genau eine Schaltfläche hat `aria-pressed="true"`, und nur sie ist fett und unterstrichen.
+  - Die Trefferzahl stimmt («1 von 2» bzw. «2 von 2 Projekten angezeigt»), auch ohne Überlauf nach dem Filtern.
+- **Tastatur:**
+  - Tab erreicht «Alle». Tab + Enter wählt «Studium», Tab + Leertaste «Praxis», Shift+Tab + Leertaste wieder «Alle».
+  - Der Fokus bleibt auf der Schaltfläche, und der Fokusrahmen ist mindestens 2 px breit.
+- **Fokusrahmen bei 375 × 700 px:** Tab und Shift+Tab über alle drei Filter-Schaltflächen. Der Rahmen liegt in allen drei Engines vollständig im Fenster.
+- **Sprunglink:** Er wird mit dem ersten Tab sichtbar fokussiert. Enter setzt `#main` und den Fokus auf `main`.
+- **Skills-Links:**
+  - «Zum Projekt PlantBuddy» bei Filter «Praxis» und «Zum Projekt Homelab» bei Filter «Studium», je per Klick und per Enter.
+  - Der Filter springt auf «Alle», das Fragment ist gesetzt, und die Karte liegt 16–18 px unter der Kopfzeile bzw. dem Fensterrand.
+- **Direktaufruf in einem neuen Tab:** `#plantbuddy` und `#homelab` mit und ohne JavaScript. Das Ziel liegt 16–18 px unter der Kopfzeile bzw. dem Fensterrand, nie darunter.
+- **Ohne JavaScript:**
+  - Die Filterleiste ist verborgen, keine Schaltfläche sichtbar, beide Karten sichtbar, kein Überlauf.
+  - Sprunglink und beide Skills-Links funktionieren, Ziele 16–18 px unter der Kopfzeile bzw. dem Fensterrand.
+- **Sichtprüfung der Screenshots in Firefox und WebKit:**
+  - ganze Seite bei 320 und 1440 px;
+  - Filter «Studium» bei 1440 px;
+  - Fokus auf «Studium» bei 375 × 700 px.
+
+**Bestehende Testreihen aus Ü1 bis Ü5**, ohne Änderung an den Prüfungen in Firefox und WebKit wiederholt:
+
+| Testreihe | Chromium (Ü5) | Firefox 132 | WebKit 18.2 |
+|---|---|---|---|
+| Neue Reihe 4.1 | 202/202 | 202/202 (2 Läufe) | 202/202 (2 Läufe) |
+| Ü1 Kopfzeile, Tab/Shift+Tab, Sprünge | 1383/1383 | 1393/1393 | 1383/1383 in 1 von 3 Läufen, sonst 1381/1383 (Befund 2) |
+| Ü2 PlantBuddy, Filter, Sprungziele | 144/144 | 144/144 | 141/144 (Befund 3) |
+| Ü3 Navigation | 112/112 | 112/112 | 112/112 |
+| Ü4 Texte, Links | 79/79 | 79/79 | 79/79 |
+| Ü5 Layout, Fokusrahmen | 125/125 | 125/125 | 120/125 (Befund 4) |
+
+In Firefox zählt die Ü1-Reihe 1393 Prüfungen. Nach dem letzten Link springt der Fokus dort nicht zum Sprunglink zurück, sondern bleibt headless auf «Zum Projekt Homelab». Dieser Link wird darum mehrfach gemessen. Die Tab-Reihenfolge ist in allen Engines gleich.
+
+### Befunde
+
+1. **Firefox ohne Schriften (Testumgebung):**
+   - Im ersten Lauf zeigte Firefox bei 320 px 97 px horizontalen Überlauf. Zwischen 768 und 816 px brach die Kopfzeile auf zwei Zeilen um, mit 84 px Höhe.
+   - Ursache: Die Content-Sandbox von Firefox blockiert den Zugriff auf die Schriften, die in dieser Testumgebung ausserhalb der Systemordner liegen. Ohne Schrift war jede Schriftfamilie doppelt so breit wie in Chromium.
+   - Mit abgeschalteter Sandbox (`MOZ_DISABLE_CONTENT_SANDBOX=1`, nur für den Test) nutzt Firefox dieselbe Schrift wie Chromium, und alle Reihen bestehen. Kein Fehler der Seite.
+2. **WebKit, Shift+Tab bei 1440 px:**
+   - In einem von drei Ü1-Läufen lag «Zum Projekt PlantBuddy» bei der Messung oberhalb des Fensters.
+   - Isoliert nachgestellt in 25 Durchläufen: einmal falsch bei einer Messung direkt nach dem Tastendruck, nach 500 ms immer vollständig sichtbar.
+   - WebKit scrollt beim Fokus asynchron, die Ü1-Reihe misst ohne Wartezeit. Chromium und Firefox zeigten es in 25 Durchläufen nie.
+   - Die Reihe 4.1 wartet, bis die Scrollposition stabil ist, und besteht.
+3. **WebKit und Chromium, Direktaufruf mit Fragment:**
+   - Beim Laden mit `#plantbuddy` scrollen beide Engines sanft (`scroll-behavior: smooth`). Die Ü2-Reihe misst schon nach 100 ms, dann liegt das Ziel noch 135–173 px zu tief.
+   - Nach rund 400 ms liegt es bei 16–18 px. Mit `prefers-reduced-motion: reduce` springt die Seite sofort.
+   - Firefox springt beim Laden ohne Animation. Kein Fehler.
+4. **WebKit, Zeichen pro Zeile:**
+   - WebKit berechnet `65ch` als 661,7 px statt 650 px, weil die Ziffer «0» in seiner Schriftmetrik etwas breiter ist.
+   - Darum passt der PlantBuddy-Text bei 768 px und als gefilterte Einzelkarte bei 1440 px auf 3 statt 4 Zeilen, im Schnitt 75 Zeichen pro Zeile. Die Ü5-Reihe erwartet höchstens 70.
+   - Die Begrenzung wirkt wie vorgesehen. Die Schwelle ist eine Faustregel, darum keine Änderung.
+
+### Konzepte für die Prüfung
+
+- **Browser-Engines:**
+  - Chromium (Blink), Firefox (Gecko) und Safari (WebKit) rendern unabhängig voneinander.
+  - Playwright-WebKit testet die Engine von Safari, aber nicht Safari selbst: Bedienoberfläche, macOS-Schriften und Einstellungen fehlen.
+- **Einheit `ch`:** die Breite der Ziffer «0» der verwendeten Schrift. Sie hängt von Schrift und Engine ab.
+- **Asynchrones Fokus-Scrollen und sanftes Scrollen:** Automatisierte Tests müssen warten, bis die Scrollposition stabil ist, sonst messen sie Zwischenstände.
+- **Testumgebung vs. Seite:** Abweichungen erst auf ihre Ursache prüfen, bevor man den Code ändert. Hier lag sie bei den Schriften der Testumgebung und beim Messzeitpunkt.
+
+### Offene Punkte
+
+- **Echtes Safari auf macOS und iOS:** nicht geprüft. Zu beachten: Safari springt mit Tab standardmässig nicht zu Links, das braucht Option+Tab oder eine Einstellung. Ausserdem den Fokusrahmen und die Zeilenlänge mit der Systemschrift prüfen.
+- **Desktop-Versionen von Firefox und Chrome:** nur die Playwright-Builds headless unter Linux mit DejaVu Sans geprüft, nicht mit den Systemschriften von Windows (Segoe UI) oder macOS.
+- **Live-Seite:** In 4.1 nur lokal getestet. Der Commit ist nicht gepusht.
+- **Manueller Screenreader-Test** (unter anderem die Ansage von `aria-pressed` und der Statusmeldung) folgt in Arbeitspaket 4.2.
+- Unverändert offen aus Ü6: Textumbruch in «Hobbys», PlantBuddy-Inhalte, Studienbezeichnung und öffentlicher Kontaktweg.
+
 ## 2026-11-25 – Überarbeitung Ü6 – Dokumentation aktualisieren
 
 ### Was
