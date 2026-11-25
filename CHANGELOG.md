@@ -1,5 +1,46 @@
 # Changelog
 
+## 2026-11-25 – Überarbeitung Ü6 – Dokumentation aktualisieren
+
+### Was
+
+- **README, Abschnitt «Technologien»:**
+  - CSS: `scroll-margin-top` ersetzt durch `scroll-padding-top` für Sprungziele. Ergänzt: `position: sticky` gilt für die Kopfzeile ab 48rem, `repeat(auto-fit, minmax())` für die Projektkarten.
+  - JavaScript: Das ES-Modul steuert den Projektfilter (`dataset`, `hidden`, `aria-pressed`, Statusmeldung mit `role="status"`) und die Jahresanzeige im Footer.
+- **README, Abschnitt «Struktur»:** `js/main.js` heisst jetzt «JavaScript-Modul (Projektfilter, Jahr im Footer)».
+- Kurze Gliederung, Live-Link, lokaler Startbefehl und relativer Link zum Changelog sind unverändert.
+- **Changelog:** Erledigte offene Punkte in älteren Einträgen sind durchgestrichen und mit dem erledigenden Paket ergänzt. Historische Angaben und Testergebnisse sind unverändert.
+- Code (`index.html`, `css/styles.css`, `js/main.js`) ist unverändert.
+
+### Warum
+
+- Die README beschrieb noch den Stand vor Arbeitspaket 3.2 und Ü1: kein Projektfilter, `scroll-margin-top` statt `scroll-padding-top`.
+- Offene Punkte, die längst erledigt sind, verdecken die tatsächlich offenen.
+
+### Veröffentlichung
+
+- Laut Git-Stand sind die Commits von Ü1 bis Ü5 (`ccf899a` bis `e882dc0`) in `origin/main` enthalten, ebenso alle früheren Arbeitspakete. Die Tests in den Einträgen Ü1 bis Ü5 bleiben lokale Tests.
+- Nach dem Push wurden die Testreihen aus Ü1 bis Ü5 gegen die Live-Seite ausgeführt, alle bestanden: Ü1 1383, Ü2 144, Ü3 112, Ü4 79, Ü5 125 Prüfungen.
+
+### Getestet
+
+- **Abgleich mit dem Code:**
+  - `scroll-padding-top` steht in `css/styles.css` auf `html`, ab 48rem mit Kopfzeilenhöhe. `scroll-margin-top` kommt im Code nicht mehr vor.
+  - `position: sticky` steht nur in der Media Query ab 48rem.
+  - Das Kartenraster nutzt `repeat(auto-fit, minmax(min(100%, 24rem), 1fr))`.
+  - `js/main.js` enthält den Filter mit `dataset.category`, `hidden`, `aria-pressed` und Statusmeldung. Das Element mit `role="status"` steht in `index.html`. Ausserdem setzt das Modul das Jahr im Footer.
+- **Links:** Der relative Link `CHANGELOG.md` in der README zeigt auf eine vorhandene Datei. Das Changelog enthält keine relativen Links.
+- `git diff --check` ohne Befund.
+- Kein Browsertest, weil sich nur Dokumentation ändert.
+
+### Offene Punkte
+
+- **Hobbys:** Bei 1440 px steht wegen der 65ch-Grenze «gerne.» allein auf der zweiten Zeile. Der Text bleibt wie in Ü4 festgelegt.
+- **PlantBuddy:** persönlicher Beitrag, Anforderungsbeispiel mit Prüfkriterium, veröffentlichbarer Beleg mit Freigabe des Teams. Siehe Ü2.
+- **Profil:** genaue Studienbezeichnung nicht bestätigt, öffentlicher Kontaktweg fehlt. Siehe Ü3.
+- **Bewusst nicht vereinheitlicht:** «Kundenbetreuer für Business Software» im Einstieg und «Kundenbetreuer Business Software» in «Über mich». Siehe Ü4.
+- **Arbeitspaket 4:** Tests in Firefox und Safari sowie ein manueller Screenreader-Test, unter anderem die Ansage von `aria-pressed` und der Statusmeldung.
+
 ## 2026-11-23 – Überarbeitung Ü5 – Karten und Abstände abstimmen
 
 ### Was
@@ -79,7 +120,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless):
 ### Offene Punkte
 
 - In «Hobbys» steht bei 1440 px wegen der 65ch-Grenze das Wort «gerne.» allein auf der zweiten Zeile. Der Text bleibt wie in Ü4 festgelegt.
-- Die README-Aktualisierung (Technologien und Struktur) folgt in Ü6.
+- ~~Die README-Aktualisierung (Technologien und Struktur) folgt in Ü6.~~ Erledigt in Ü6.
 - Die abschliessenden Tests in Firefox, Safari und mit Screenreader folgen in Arbeitspaket 4.
 
 ## 2026-11-23 – Überarbeitung Ü4 – Texte straffen
@@ -138,10 +179,10 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 144
 
 - **Offene Profilangaben (unverändert aus Ü3):** genaue Studienbezeichnung und ein öffentlicher Kontaktweg.
 - **Bewusst nicht vereinheitlicht:** Der Einstieg sagt «Kundenbetreuer für Business Software», «Über mich» «Kundenbetreuer Business Software». Beide Formulierungen sind so vorgegeben.
-- **In Ü5 (Layout):**
-  - Zeilenbreiten, zum Beispiel «Über mich» bei 1440 px mit rund 120 Zeichen in einer Zeile;
-  - Kartenlayout und Abstände;
-  - der um 7 px abgeschnittene Fokusrahmen der Filter-Schaltflächen bei 375 × 700 px.
+- **In Ü5 (Layout):** Erledigt in Ü5.
+  - ~~Zeilenbreiten, zum Beispiel «Über mich» bei 1440 px mit rund 120 Zeichen in einer Zeile;~~
+  - ~~Kartenlayout und Abstände;~~
+  - ~~der um 7 px abgeschnittene Fokusrahmen der Filter-Schaltflächen bei 375 × 700 px.~~
 
 ## 2026-11-23 – Überarbeitung Ü3 – Kontakt und Profil bereinigen
 
@@ -190,7 +231,7 @@ Fehlende Profilangaben. Sie werden erst ergänzt, wenn sie bestätigt und zur Ve
 
 Weitere offene Punkte:
 
-- Die README erwähnt keinen Kontaktabschnitt, dort ist nichts anzupassen. Ihre Technologieliste wird in Überarbeitungspaket 5 aktualisiert.
+- Die README erwähnt keinen Kontaktabschnitt, dort ist nichts anzupassen. ~~Ihre Technologieliste wird in Überarbeitungspaket 5 aktualisiert.~~ Erledigt in Ü6.
 
 ## 2026-11-23 – Überarbeitung Ü2 – PlantBuddy auf belegte Inhalte kürzen
 
@@ -243,7 +284,7 @@ Offene Inhalte zu PlantBuddy. Sie werden erst öffentlich, wenn sie vorliegen un
 
 Weitere offene Punkte:
 
-- Bei 1440 px läuft die Kurzbeschreibung mit rund 112 Zeichen pro Zeile, und unter dem Text bleibt mehr Abstand als oben (Rand des letzten Absatzes). Das wird in Ü4/Ü5 (Layout) behoben.
+- ~~Bei 1440 px läuft die Kurzbeschreibung mit rund 112 Zeichen pro Zeile, und unter dem Text bleibt mehr Abstand als oben (Rand des letzten Absatzes). Das wird in Ü4/Ü5 (Layout) behoben.~~ Erledigt in Ü5 (65ch-Grenze, kein Aussenabstand am letzten Element).
 
 ## 2026-11-23 – Überarbeitung Ü1 – Mobile Kopfzeile und Sprungziele
 
@@ -287,8 +328,8 @@ Lokal mit `http-server` und Playwright (Chromium, headless). Insgesamt 1390 Prü
 
 ### Offene Punkte
 
-- Die README nennt unter «Technologien» noch `scroll-margin-top`. Das wird mit Überarbeitungspaket 5 (Dokumentation) angepasst.
-- Bei 375 px × 700 px schneidet der Fensterrand beim Tabben vorwärts den Fokusrahmen der Filter-Schaltflächen unten um 7 px ab, weil der Browser nur minimal scrollt. Die Schaltflächen bleiben sichtbar. Der Effekt bestand schon vorher und hängt nicht mit der Kopfzeile zusammen.
+- ~~Die README nennt unter «Technologien» noch `scroll-margin-top`. Das wird mit Überarbeitungspaket 5 (Dokumentation) angepasst.~~ Erledigt in Ü6.
+- ~~Bei 375 px × 700 px schneidet der Fensterrand beim Tabben vorwärts den Fokusrahmen der Filter-Schaltflächen unten um 7 px ab, weil der Browser nur minimal scrollt. Die Schaltflächen bleiben sichtbar. Der Effekt bestand schon vorher und hängt nicht mit der Kopfzeile zusammen.~~ Erledigt in Ü5 (Fokusrahmen innen).
 
 ## 2026-11-20 – Arbeitspaket 3.2 – Projektfilter
 
@@ -339,7 +380,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless), Filter-Testreihe be
 
 - Manueller Screenreader-Test (Ansage von `aria-pressed` und Statusmeldung) steht aus.
 - Prüfung in weiteren Browsern (Firefox, Safari) steht aus.
-- README «Struktur»/«Technologien» erwähnt den Filter noch nicht – separat nachführen.
+- ~~README «Struktur»/«Technologien» erwähnt den Filter noch nicht – separat nachführen.~~ Erledigt in Ü6.
 
 ## 2026-11-20 – Arbeitspaket 3.1 – Projektkategorien vorbereiten
 
@@ -417,7 +458,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 192
 - **Beruflicher Profil-Link** (z. B. LinkedIn): nicht bestätigt – im Abschnitt Kontakt ergänzen, sobald er bestätigt ist.
 - **Genaue Studienbezeichnung:** geht aus den Projektunterlagen nicht hervor – bei Bedarf in «Über mich» ergänzen.
 - Manueller Screenreader-Test steht weiterhin aus.
-- Änderungen aus 2.1 bis 2.3 sind nur lokal committet und noch nicht veröffentlicht.
+- ~~Änderungen aus 2.1 bis 2.3 sind nur lokal committet und noch nicht veröffentlicht.~~ Erledigt: laut Git-Stand in `origin/main` enthalten (siehe Ü6).
 
 ## 2026-11-20 – Arbeitspaket 2.2 – Homelab-Fallbeispiel
 
@@ -457,7 +498,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 192
 
 - Ein manueller Screenreader-Test der Seite steht noch aus.
 - PlantBuddy-Platzhalter aus 2.1 bleiben offen.
-- Änderungen aus 2.1 und 2.2 sind nur lokal committet und noch nicht veröffentlicht.
+- ~~Änderungen aus 2.1 und 2.2 sind nur lokal committet und noch nicht veröffentlicht.~~ Erledigt: laut Git-Stand in `origin/main` enthalten (siehe Ü6).
 
 ## 2026-11-20 – Arbeitspaket 2.1 – PlantBuddy-Fallbeispiel
 
@@ -503,7 +544,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 192
 - **Anforderungsbeispiel:** eine dokumentierte Anforderung aus den Grobanforderungen (Wortlaut, ggf. ID aus den Unterlagen), der zugrunde liegende Bedarf und ein daraus abgeleitetes Prüfkriterium (als Vorschlag gekennzeichnet) fehlen – Platzhalter «Eine konkrete Anforderung mit zugehörigem Prüfkriterium wird hier ergänzt.»
 - **Beleg:** ein zur Veröffentlichung freigegebener Auszug aus den Projektunterlagen oder eine eigene Darstellung fehlt – Platzhalter «Ein veröffentlichbarer Auszug aus den Projektunterlagen wird hier ergänzt.»
 - Freigabe des Teams für die Veröffentlichung von Auszügen klären.
-- Die Änderungen sind nur lokal committet und noch nicht auf GitHub Pages veröffentlicht.
+- ~~Die Änderungen sind nur lokal committet und noch nicht auf GitHub Pages veröffentlicht.~~ Erledigt: laut Git-Stand in `origin/main` enthalten (siehe Ü6).
 
 ## 2026-11-20 – Arbeitspaket 1 – Portfolio-Grundgerüst
 

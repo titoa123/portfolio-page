@@ -9,8 +9,8 @@ Live-Seite: <https://titoa123.github.io/portfolio-page/>
 ## Technologien
 
 - **HTML:** semantische Struktur (`header`, `nav`, `main`, `section`, `article`, `footer`), Sprache `de-CH`, Sprunglink zum Hauptinhalt
-- **CSS:** mobile-first mit Media Queries (`min-width`), CSS-Variablen, CSS Grid, Flexbox mit `flex-wrap`, `clamp()` für Schriftgrössen, `position: sticky`, `scroll-margin-top`, `:focus-visible` und `prefers-reduced-motion`
-- **JavaScript:** ein ES-Modul (`<script type="module">`), das das Jahr im Footer aktualisiert; Inhalte und Navigation funktionieren auch ohne JavaScript
+- **CSS:** mobile-first mit Media Queries (`min-width`), CSS-Variablen, CSS Grid, Flexbox mit `flex-wrap`, `clamp()` für Schriftgrössen, `repeat(auto-fit, minmax())` für die Projektkarten, `position: sticky` für die Kopfzeile ab 48rem, `scroll-padding-top` für Sprungziele, `:focus-visible` und `prefers-reduced-motion`
+- **JavaScript:** ein ES-Modul (`<script type="module">`) für den Projektfilter (`dataset`, `hidden`, `aria-pressed`, Statusmeldung mit `role="status"`) und die Jahresanzeige im Footer; Inhalte und Navigation funktionieren auch ohne JavaScript
 - **Hosting:** GitHub Pages (Branch `main`, Ordner `/`)
 
 ## Struktur
@@ -18,7 +18,7 @@ Live-Seite: <https://titoa123.github.io/portfolio-page/>
 ```
 index.html        Startseite mit allen Abschnitten
 css/styles.css    Stylesheet (mobile-first, CSS-Variablen)
-js/main.js        JavaScript-Modul (Jahr im Footer)
+js/main.js        JavaScript-Modul (Projektfilter, Jahr im Footer)
 CHANGELOG.md      Änderungsprotokoll pro Arbeitspaket
 README.md         Projektübersicht
 ```
