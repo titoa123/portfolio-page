@@ -86,3 +86,24 @@ function initProjectFilter() {
 }
 
 initProjectFilter();
+
+// Der oberste erreichte Abschnitt bestimmt die aktive Navigation.
+const sectionLinks = [...document.querySelectorAll('.nav-list a')];
+const sections = sectionLinks.map(link => document.querySelector(link.hash));
+function updateNavigation() {
+  const boundary = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) + 2;
+  let current = 0;
+  sections.forEach((section, index) => {
+    if (section.getBoundingClientRect().top <= boundary) current = index;
+  });
+  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
+    current = sections.length - 1;
+  }
+  sectionLinks.forEach((link, index) => {
+    if (index === current) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+}
+window.addEventListener('scroll', updateNavigation, { passive: true });
+window.addEventListener('resize', updateNavigation);
+updateNavigation();

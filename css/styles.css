@@ -1,14 +1,14 @@
 /* Designwerte */
 :root {
-  --color-bg: #fbfaf7;
-  --color-bg-alt: #f0eee8;
-  --color-surface: #ffffff;
-  --color-text: #1f2328;
-  --color-muted: #555d66;
-  --color-accent: #1f6f50;
-  --color-accent-dark: #164f39;
-  --color-border: #dcd8ce;
-  --color-focus: #b8470f;
+  --color-bg: #100e0c;
+  --color-bg-alt: #191511;
+  --color-surface: #201a15;
+  --color-text: #fff6e6;
+  --color-muted: #d0c4b4;
+  --color-accent: #ffc468;
+  --color-accent-dark: #ffd89a;
+  --color-border: #645545;
+  --color-focus: #ffe092;
 
   --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-size-base: 1rem;
@@ -182,14 +182,14 @@ main:focus {
   padding: var(--space-s) var(--space-l);
   border-radius: var(--radius);
   background: var(--color-accent);
-  color: #ffffff;
+  color: #201a15;
   font-weight: 600;
   text-decoration: none;
 }
 
 .button:hover {
   background: var(--color-accent-dark);
-  color: #ffffff;
+  color: #201a15;
 }
 
 .section {
@@ -236,7 +236,7 @@ main:focus {
 /* Aktiver Zustand: Füllung plus Unterstreichung und Fettschrift (nicht nur Farbe) */
 .filter-button[aria-pressed="true"] {
   background: var(--color-accent);
-  color: #ffffff;
+  color: #201a15;
   font-weight: 700;
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -370,4 +370,32 @@ main:focus {
   .skill-list {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Typografie und Objektfotografie des Projektarchivs */
+h1, h2, .brand, .subtitle, figcaption, .skill h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+}
+h1 { font-size: clamp(3rem, 8vw, 6.5rem); }
+h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
+.subtitle { font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.25; }
+.brand { font-size: 1.35rem; }
+.hero { padding-block: clamp(2rem, 7vw, 6rem); }
+.spread { display: grid; align-items: center; gap: 2rem; }
+.spread img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.button, .button:hover, .filter-button[aria-pressed="true"] { color: #21160b; }
+.skill-list { grid-template-columns: 1fr; gap: 0; }
+.skill { background: transparent; border: 0; border-top: 1px solid var(--color-border); border-radius: 0; padding: 1.25rem 0; }
+.skill h3 { font-size: 1.5rem; }
+.hobby-grid { display: grid; gap: 1rem; }
+.hobby-grid figure { margin: 0; display: grid; background: var(--color-surface); }
+.hobby-grid img { width: 100%; height: 100%; min-height: 0; object-fit: cover; }
+.hobby-grid figcaption { padding: .5rem 1rem; font-size: 1.4rem; }
+figcaption small { display: block; font: .9rem/1.5 var(--font-body); }
+.nav-list a[aria-current] { color: var(--color-accent); text-decoration: underline; text-underline-offset: .35em; }
+@media (min-width: 48rem) {
+  .spread { grid-template-columns: 1fr 1fr; }
+  .hobby-grid { grid-template-columns: 1.5fr 1fr; }
+  .hobby-grid figure:first-child { grid-row: span 2; }
 }

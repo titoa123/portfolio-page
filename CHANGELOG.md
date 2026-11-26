@@ -1,5 +1,9 @@
 # Changelog
 
+## Überarbeitung Ü8 – Grundlayout und Seiten
+
+Start, Skills, Profil und Hobbys im Archivstil gestaltet. Aktiver Navigationspunkt beim Scrollen, bestehender Projektfilter und Sprungziele erhalten.
+
 ## Überarbeitung Ü7 – Projektgrafiken
 
 Fünf vollständige Objektmotive als WebP für die gemeinsame Nutzung in Miniatur und Detail vorbereitet.
