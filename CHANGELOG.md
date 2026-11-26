@@ -1,5 +1,9 @@
 # Changelog
 
+## Überarbeitung Ü7 – Projektgrafiken
+
+Fünf vollständige Objektmotive als WebP für die gemeinsame Nutzung in Miniatur und Detail vorbereitet.
+
 ## 2026-11-25 – Arbeitspaket 4.1 – Browser-Kompatibilität
 
 ### Was
