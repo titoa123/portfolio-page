@@ -1,5 +1,9 @@
 # Changelog
 
+## Überarbeitung Ü10 – Automatischer Projektrundgang
+
+Sichtbare Projekte wechseln alle zehn Sekunden. Manuelle Auswahl, Direktlinks und Tastaturfokus pausieren dauerhaft bis zum bewussten Neustart. Bei reduzierter Bewegung startet der Katalog pausiert.
+
 ## Überarbeitung Ü9 – Projektkatalog
 
 Fünf Projekte mit direkter Auswahl, Objektbildern und stabilen Sprungzielen. Ohne JavaScript sind alle fünf Artikel lesbar. Der Kategorienfilter entfällt.

@@ -320,3 +320,6 @@ figcaption small { display: block; font: .9rem/1.5 var(--font-body); }
   .project-list small { display: block; margin-top: .3rem; color: var(--color-muted); }
   .project-details article { padding-top: 0; }
 }
+
+.catalog-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0 1rem; }
+.tour-control { padding: .65rem 1rem; margin-bottom: 1rem; border: 0; border-radius: var(--radius); background: var(--color-accent); color: #21160b; font: inherit; cursor: pointer; }
