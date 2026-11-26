@@ -41,38 +41,42 @@
 
     <section id="projekte" class="section" aria-labelledby="projekte-title">
       <div class="container">
-        <h2 id="projekte-title">Projekte</h2>
-
-        <!-- Wird erst von js/main.js eingeblendet; ohne JavaScript bleiben alle Karten sichtbar. -->
-        <div class="project-filter" data-project-filter hidden>
-          <p class="project-filter-label" id="project-filter-label">Projekte filtern</p>
-          <div class="project-filter-buttons" role="group" aria-labelledby="project-filter-label">
-            <button type="button" class="filter-button" data-filter="alle" aria-pressed="true">Alle</button>
-            <button type="button" class="filter-button" data-filter="studium" aria-pressed="false">Studium</button>
-            <button type="button" class="filter-button" data-filter="praxis" aria-pressed="false">Praxis</button>
+        <h2 id="projekte-title">Projektarchiv</h2>
+        <div class="catalog">
+          <nav class="project-list" aria-label="Projektauswahl">
+            <a href="#plantbuddy"><img src="assets/projekte/plantbuddy.webp" alt="" loading="lazy"><span><strong>PlantBuddy</strong><small>App-Konzept im Team</small></span></a>
+            <a href="#homelab"><img src="assets/projekte/homelab.webp" alt="" loading="lazy"><span><strong>Homelab</strong><small>Eigene Dienste mit Proxmox</small></span></a>
+            <a href="#portal-islands"><img src="assets/projekte/portal-islands.webp" alt="" loading="lazy"><span><strong>Portal Islands</strong><small>Minecraft-Mod für Inselexpeditionen</small></span></a>
+            <a href="#dashboard"><img src="assets/projekte/dashboard.webp" alt="" loading="lazy"><span><strong>Dashboard</strong><small>Konzept für eine private Webübersicht</small></span></a>
+            <a href="#escape-the-tide"><img src="assets/projekte/escape-the-tide.webp" alt="" loading="lazy"><span><strong>Escape the Tide</strong><small>Taktikrätsel mit steigender Flut</small></span></a>
+          </nav>
+          <div class="project-details">
+            <article id="plantbuddy" aria-labelledby="plantbuddy-title">
+              <h3 id="plantbuddy-title">PlantBuddy</h3>
+              <p>Für WGs und Büros haben wir im Modul WPR1 ein Konzept für die gemeinsame Pflanzenpflege erarbeitet. Im Team entstanden der Projektauftrag, die Systemziele und die Grobanforderungen.</p>
+              <img src="assets/projekte/plantbuddy.webp" loading="lazy" alt="">
+            </article>
+            <article id="homelab" aria-labelledby="homelab-title">
+              <h3 id="homelab-title">Homelab</h3>
+              <p>In meinem Homelab betreibe ich eigene Dienste und beschäftige mich mit Virtualisierung, Netzwerken und Datensicherung. Interne Anwendungen und öffentlich erreichbare Gameserver laufen in getrennten Netzbereichen.</p>
+              <img src="assets/projekte/homelab.webp" loading="lazy" alt="">
+            </article>
+            <article id="portal-islands" aria-labelledby="portal-islands-title">
+              <h3 id="portal-islands-title">Portal Islands</h3>
+              <p>Die Mod führt Spieler gemeinsam auf Expeditionen. Eine Herausforderung ist die Rückkehr: Jede Person soll nach der gemeinsamen Reise ihren eigenen Ausgangspunkt wieder erreichen.</p>
+              <img src="assets/projekte/portal-islands.webp" loading="lazy" alt="">
+            </article>
+            <article id="dashboard" aria-labelledby="dashboard-title">
+              <h3 id="dashboard-title">Dashboard</h3>
+              <p>Kalender, Aufgaben, Wetter und ÖV sollen auf einen Blick zeigen, was für den Tag ansteht. Das Tablet illustriert das Konzept mit Beispieldaten.</p>
+              <img src="assets/projekte/dashboard.webp" loading="lazy" alt="">
+            </article>
+            <article id="escape-the-tide" aria-labelledby="escape-the-tide-title">
+              <h3 id="escape-the-tide-title">Escape the Tide</h3>
+              <p>Mit jedem gültigen Schritt breitet sich das Wasser aus. Vor dem ersten Zug kannst du eine Barriere setzen. Sie schützt deinen Weg und kann dir zugleich den Ausgang versperren.</p>
+              <img src="assets/projekte/escape-the-tide.webp" loading="lazy" alt="">
+            </article>
           </div>
-          <p class="project-filter-status" role="status" data-filter-status></p>
-        </div>
-
-        <div class="card-grid">
-          <article id="plantbuddy" class="card" data-category="studium" aria-labelledby="plantbuddy-title">
-            <h3 id="plantbuddy-title">PlantBuddy</h3>
-            <p class="card-tag">Studienprojekt · Teamkonzept</p>
-            <p>
-              PlantBuddy entstand im Modul WPR1 als Teamkonzept für eine App, mit der WGs und Büros
-              die gemeinsame Pflanzenpflege organisieren können. Im Team erarbeiteten wir den
-              Projektauftrag, die Systemziele und die Grobanforderungen.
-            </p>
-          </article>
-          <article id="homelab" class="card" data-category="praxis" aria-labelledby="homelab-title">
-            <h3 id="homelab-title">Homelab</h3>
-            <p class="card-tag">Praxisprojekt</p>
-            <p>
-              In meinem Homelab betreibe ich eigene Dienste mit Proxmox und sammle praktische
-              Erfahrung mit Virtualisierung, Netzwerken und Datensicherung. Ein Schwerpunkt ist die
-              Trennung von internen Diensten und öffentlich erreichbaren Gameservern.
-            </p>
-          </article>
         </div>
       </div>
     </section>

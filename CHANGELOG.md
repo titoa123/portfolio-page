@@ -1,5 +1,9 @@
 # Changelog
 
+## Überarbeitung Ü9 – Projektkatalog
+
+Fünf Projekte mit direkter Auswahl, Objektbildern und stabilen Sprungzielen. Ohne JavaScript sind alle fünf Artikel lesbar. Der Kategorienfilter entfällt.
+
 ## Überarbeitung Ü8 – Grundlayout und Seiten
 
 Start, Skills, Profil und Hobbys im Archivstil gestaltet. Aktiver Navigationspunkt beim Scrollen, bestehender Projektfilter und Sprungziele erhalten.

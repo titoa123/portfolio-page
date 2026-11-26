@@ -200,102 +200,6 @@ main:focus {
   background: var(--color-bg-alt);
 }
 
-/* Projektfilter */
-.project-filter {
-  margin-bottom: var(--space-l);
-}
-
-.project-filter-label {
-  margin-bottom: var(--space-s);
-  font-weight: 600;
-}
-
-.project-filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-s);
-}
-
-.filter-button {
-  min-height: 2.75rem;
-  padding: var(--space-s) var(--space-m);
-  border: 2px solid var(--color-accent);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-  color: var(--color-accent);
-  font: inherit;
-  cursor: pointer;
-  /* Muss der Browser beim Fokus scrollen, bleibt etwas Luft zum Fensterrand */
-  scroll-margin-block: var(--space-m);
-}
-
-.filter-button:hover {
-  background: var(--color-bg-alt);
-}
-
-/* Aktiver Zustand: Füllung plus Unterstreichung und Fettschrift (nicht nur Farbe) */
-.filter-button[aria-pressed="true"] {
-  background: var(--color-accent);
-  color: #201a15;
-  font-weight: 700;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.25em;
-}
-
-/* Fokusrahmen innen statt aussen: Der Browser scrollt nicht, solange die Schaltfläche
-   selbst sichtbar ist. Ein Rahmen ausserhalb konnte darum am Fensterrand abgeschnitten
-   werden. Der weisse Innenstreifen trennt den Rahmen von der Füllung der aktiven Auswahl. */
-.filter-button:focus-visible {
-  outline-offset: -3px;
-  box-shadow: inset 0 0 0 4px var(--color-surface);
-}
-
-.project-filter-status {
-  margin: var(--space-s) 0 0;
-  font-size: 0.875rem;
-  color: var(--color-muted);
-}
-
-/* Projektkarten: nebeneinander, sobald zwei Spalten mit mindestens 24rem Platz haben.
-   auto-fit lässt leere Spalten wegfallen: Nach dem Filtern nutzt eine einzelne Karte
-   die volle Breite. */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
-  gap: var(--space-m);
-}
-
-.card {
-  padding: var(--space-l) var(--space-m);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-}
-
-/* Einheitlicher Kartenkopf: Titel, Kategorie, Kurzbeschreibung */
-.card h3 {
-  margin-bottom: var(--space-xs);
-}
-
-.card > :last-child {
-  margin-bottom: 0;
-}
-
-.card-tag {
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
-}
-
-/* Fliesstext auf rund 65 Zeichen pro Zeile begrenzen; Karten und Abschnitte bleiben breit */
-.card p,
-.section > .container > p {
-  max-inline-size: 65ch;
-}
-
 /* Skills: mobil untereinander, ab 48rem zweispaltig */
 .skill-list {
   display: grid;
@@ -398,4 +302,21 @@ figcaption small { display: block; font: .9rem/1.5 var(--font-body); }
   .spread { grid-template-columns: 1fr 1fr; }
   .hobby-grid { grid-template-columns: 1.5fr 1fr; }
   .hobby-grid figure:first-child { grid-row: span 2; }
+}
+
+
+.catalog, .project-list, .project-details { min-width: 0; }
+.project-list { display: flex; flex-wrap: wrap; gap: .5rem; align-content: start; }
+.project-list a { display: flex; align-items: center; gap: .75rem; padding: .65rem; color: var(--color-text); text-decoration: none; border: 1px solid var(--color-border); }
+.project-list a[aria-current] { border-color: var(--color-accent); color: var(--color-accent); text-decoration: underline; }
+.project-list img, .project-list small { display: none; }
+.project-details article { padding-block: 1rem; }
+.project-details h3 { font: 500 clamp(2rem, 5vw, 4rem)/1.1 Georgia, serif; }
+.project-details img { display: block; width: 100%; height: auto; object-fit: contain; }
+@media (min-width: 48rem) {
+  .catalog { display: grid; grid-template-columns: minmax(15rem, 1fr) minmax(0, 2fr); gap: 2rem; }
+  .project-list { display: grid; }
+  .project-list img { display: block; width: 28%; height: auto; object-fit: contain; }
+  .project-list small { display: block; margin-top: .3rem; color: var(--color-muted); }
+  .project-details article { padding-top: 0; }
 }
