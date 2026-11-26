@@ -1,5 +1,18 @@
 # Changelog
 
+## Überarbeitung Ü11 – Integration und Dokumentation
+
+README auf fünf Projekte und Rundgang aktualisiert, überholte CSS-Regeln für Filter und Karten entfernt. Unter /portfolio-page/ in QtWebEngine 5.15.2 (Chromium 83) alle fünf Projekte bei 320, 768, 1024 und 1440 px ausgewählt: passender Artikel sichtbar, kein horizontaler Dokumentüberlauf. Direktaufruf #dashboard und Wechsel von Escape the Tide zu PlantBuddy nach Neustart geprüft. Zusätzlich alle lokalen Ressourcenpfade, internen Sprungziele und WebP-Dateien geprüft.
+
+Lokale Abnahme am 27.11.2026 mit Playwright 1.65.1 unter Linux (headless):
+
+- Chromium 159.0.8154.6, Firefox 159.0 und WebKit 27.2: Bei 320, 768, 1024 und 1440 px liessen sich alle fünf Projekte per Klick auswählen. Jeweils genau der passende Artikel war sichtbar und der zugehörige Link als aktiv markiert.
+- Chromium und WebKit blieben bei allen Breiten ohne horizontalen Dokumentüberlauf. In Firefox war das Dokument bei 320 px nach jeder der fünf Auswahlen 520 px breit. Der Überlauf war im zweiten Durchlauf reproduzierbar. Bei 768, 1024 und 1440 px trat er nicht auf.
+- Sichtprüfung in allen drei Engines: Alle fünf Objektmotive waren in den Grossansichten bei 320 und 1440 px sowie in den fünf Desktop-Miniaturen vollständig sichtbar.
+- Chromium bei 1440 px: Dashboard per Mausklick gewählt und den Zeiger aus dem Projektbereich bewegt. Nach 20 Sekunden war Dashboard weiterhin sichtbar. Nach Klick auf «Rundgang starten» wurde Dashboard nach 10,0003 Sekunden durch Escape the Tide ersetzt.
+
+Offen sind die Behebung und Nachprüfung des Firefox-Überlaufs bei 320 px. Schritt 4.2 folgt separat.
+
 ## Überarbeitung Ü10 – Automatischer Projektrundgang
 
 Sichtbare Projekte wechseln alle zehn Sekunden. Manuelle Auswahl, Direktlinks und Tastaturfokus pausieren dauerhaft bis zum bewussten Neustart. Bei reduzierter Bewegung startet der Katalog pausiert.

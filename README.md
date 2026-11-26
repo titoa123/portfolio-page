@@ -2,28 +2,20 @@
 
 Persönliches Portfolio für das Modul Web Engineering an der BFH, umgesetzt mit HTML, CSS und JavaScript ohne Framework und ohne Build-Schritt.
 
-Im Projektbereich lassen sich die Projekte nach Studium und Praxis filtern. Ohne JavaScript werden beide Projekte angezeigt.
+## Projektarchiv
 
-Live-Seite: <https://titoa123.github.io/portfolio-page/>
+PlantBuddy, Homelab, Portal Islands, Dashboard und Escape the Tide lassen sich direkt auswählen. Auf schmalen Bildschirmen steht die Auswahl über der Beschreibung. Ohne JavaScript sind alle fünf Projektartikel unter ihren eigenen Sprungzielen lesbar.
 
-## Technologien
+Der sichtbare Katalog wechselt alle zehn Sekunden zum nächsten Projekt. Eine manuelle Wahl, ein Direktlink oder Tastaturfokus pausiert den Rundgang. «Rundgang starten» beginnt ein volles Intervall. Hover, Hintergrundtab und ein Katalog ausserhalb des Sichtfelds unterbrechen den Timer. Bei reduzierter Bewegung startet der Rundgang pausiert.
 
-- **HTML:** semantische Struktur (`header`, `nav`, `main`, `section`, `article`, `footer`), Sprache `de-CH`, Sprunglink zum Hauptinhalt
-- **CSS:** mobile-first mit Media Queries (`min-width`), CSS-Variablen, CSS Grid, Flexbox mit `flex-wrap`, `clamp()` für Schriftgrössen, `repeat(auto-fit, minmax())` für die Projektkarten, `position: sticky` für die Kopfzeile ab 48rem, `scroll-padding-top` für Sprungziele, `:focus-visible` und `prefers-reduced-motion`
-- **JavaScript:** ein ES-Modul (`<script type="module">`) für den Projektfilter (`dataset`, `hidden`, `aria-pressed`, Statusmeldung mit `role="status"`) und die Jahresanzeige im Footer; Inhalte und Navigation funktionieren auch ohne JavaScript
-- **Hosting:** GitHub Pages (Branch `main`, Ordner `/`)
+## Aufbau
 
-## Struktur
+- `index.html` enthält alle fünf Bereiche und die Projektartikel.
+- `css/styles.css` gestaltet Navigation, Layout, Fokus und Bilddarstellung.
+- `js/main.js` steuert Auswahl, Rundgang, aktive Navigation und Jahresanzeige.
+- `assets/projekte/` enthält die fünf WebP-Motive für Miniaturen und Detailansicht. Die übrigen Illustrationen stehen unter `assets/seiten/`.
 
-```
-index.html        Startseite mit allen Abschnitten
-css/styles.css    Stylesheet (mobile-first, CSS-Variablen)
-js/main.js        JavaScript-Modul (Projektfilter, Jahr im Footer)
-CHANGELOG.md      Änderungsprotokoll pro Arbeitspaket
-README.md         Projektübersicht
-```
-
-Alle Pfade sind relativ, damit die Seite auch unter dem GitHub-Pages-Pfad `/portfolio-page/` lädt.
+GitHub Pages veröffentlicht den Stand auf `main` unter [portfolio-page](https://titoa123.github.io/portfolio-page/). Relative Ressourcenpfade unterstützen diesen Unterordner.
 
 ## Lokal starten
 

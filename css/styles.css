@@ -267,9 +267,6 @@ main:focus {
     padding-block: var(--space-l);
   }
 
-  .card {
-    padding: var(--space-l);
-  }
 
   .skill-list {
     grid-template-columns: repeat(2, 1fr);
@@ -288,7 +285,7 @@ h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
 .hero { padding-block: clamp(2rem, 7vw, 6rem); }
 .spread { display: grid; align-items: center; gap: 2rem; }
 .spread img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
-.button, .button:hover, .filter-button[aria-pressed="true"] { color: #21160b; }
+.button, .button:hover { color: #21160b; }
 .skill-list { grid-template-columns: 1fr; gap: 0; }
 .skill { background: transparent; border: 0; border-top: 1px solid var(--color-border); border-radius: 0; padding: 1.25rem 0; }
 .skill h3 { font-size: 1.5rem; }
