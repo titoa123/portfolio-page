@@ -1,5 +1,23 @@
 # Changelog
 
+## Ü12 – Projektarchiv ohne Sprünge
+
+Die Auswahl aktualisiert Detailansicht und Projekthash und lässt den Fokus auf dem Listenlink. Zurück und Vorwärts stellen die Auswahl wieder her. Im einspaltigen Layout führt «Zum ausgewählten Projekt» gezielt zum Titel. Ohne JavaScript bleiben alle fünf Artikel über ihre Fragmentlinks erreichbar.
+
+Alle fünf Texte bestimmen über gemeinsame Grid-Zeilen den Platz oberhalb des Grossbildes. Intrinsische Masse und responsive 3:2-Flächen reservieren den Platz für Grossbilder und Miniaturen. Die äusseren Studioflächen aller fünf WebPs laufen in den gemessenen Seitenhintergrund `#100e0c` aus. Die Bearbeitung verwendet ImageGen für die Randbereiche und das jeweilige Original für Motiv und Bodenkontakt.
+
+Unter der Liste bedienen Start und Pause den Zehn-Sekunden-Rundgang. Balken und Wechsel verwenden denselben Endzeitpunkt. Manuelle Auswahl und Pause bleiben bestehen, bis Start aktiviert wird. Bei reduzierter Bewegung beginnt der Rundgang pausiert und lässt sich mit ruhendem Balken bewusst starten.
+
+Lokale Abnahme am 27.11.2026 mit dem Ü11-Playwright-Aufbau unter Linux:
+
+- Chromium 159.0.8154.6, Firefox 159.0 und WebKit 27.2 bei 320, 768, 1024 und 1440 CSS-Pixeln, jeweils 900 px hoch. Alle 60 Auswahlen zeigten genau das richtige Projekt, den passenden Hash und den Fokus auf dem Listenlink. Scrollposition, Archivüberschrift, Bildoberkante und Bildmasse blieben je Browser und Breite gleich. Kein horizontaler Überlauf. Firefox bei 320 px erreichte nach jedem der fünf Erstklicks ab frischem Laden 320/320 px für Client- und Scrollbreite.
+- Grossbilder bei 320 und 1440 px sowie Desktop-Miniaturen aller fünf Motive in allen drei Engines visuell geprüft. Die Bildflächen massen bei den vier Breiten 288 × 192, 464 × 309,3, 640 × 426,7 und 704 × 469,3 px. Motive vollständig, Gehäusefüsse, Reflexe und vordere Brettkante sichtbar. Die mobilen Miniaturen bleiben ausgeblendet.
+- Enter, wiederholte Auswahl, mobiler Detailsprung mit Fokus am Titel, Direktlink, Neuladen und Verlauf in allen drei Engines geprüft. Chromium zusätzlich mit Strg-Klick in neuem Tab, ohne JavaScript und mit emuliertem Touch geprüft. Bei 200 % Grundschrift passten alle fünf Textblöcke oberhalb der stabilen Bildfläche. Beim verzögerten Laden der Homelab-Datei blieben Bildanfang, Bildmasse und Position des folgenden Abschnitts gleich.
+- Chromium in Echtzeit: Dashboard blieb nach manueller Wahl und Verlassen des Katalogs 20 s sichtbar. Nach Start war bei 9,6 s weiterhin Dashboard ausgewählt, nach 10,013 s erschien Escape the Tide. Fokus und Scrollposition blieben erhalten, der Hash war `#projekte` und die History-Länge blieb gleich.
+- Explizite Pause, Start per Tastatur, Hover, Fokus, Rückkehr ins Sichtfeld sowie Aktivieren reduzierter Bewegung und bewusster Neustart mit ruhendem Balken geprüft. In einem tatsächlich verborgenen Chromium-Tab blieb die Auswahl über 10,5 s erhalten. Nach Rückkehr war sie nach 9,5 s noch gleich, nach 10,3 s erschien das nächste Projekt.
+- Zusatzbefund im headless WebKit-Aufbau bei 320 px: Der separate Textlink aus «Skills» zu PlantBuddy hatte bereits auf `e017410` eine gemessene Höhe von 0 px. Sein Tastatursprung funktioniert, der Mausklick auf diesen externen Einstieg bleibt in diesem Aufbau offen. Alle fünf Links der Archivliste waren per Maus bedienbar.
+- Offen bleiben echte Touch-Eingabe auf Hardware und Schritt 4.2, die separate manuelle Screenreader-Prüfung.
+
 ## Überarbeitung Ü11 – Integration und Dokumentation
 
 README auf fünf Projekte und Rundgang aktualisiert, überholte CSS-Regeln für Filter und Karten entfernt. Unter /portfolio-page/ in QtWebEngine 5.15.2 (Chromium 83) alle fünf Projekte bei 320, 768, 1024 und 1440 px ausgewählt: passender Artikel sichtbar, kein horizontaler Dokumentüberlauf. Direktaufruf #dashboard und Wechsel von Escape the Tide zu PlantBuddy nach Neustart geprüft. Zusätzlich alle lokalen Ressourcenpfade, internen Sprungziele und WebP-Dateien geprüft.

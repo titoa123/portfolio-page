@@ -8,37 +8,60 @@ if (yearElement) {
 const projectLinks = [...document.querySelectorAll('.project-list a')];
 const projectArticles = projectLinks.map(link => document.getElementById(link.hash.slice(1)));
 
-function selectProject(hash) {
-  const selected = projectLinks.findIndex(link => link.hash === hash);
-  if (selected < 0) return false;
-  projectLinks.forEach((link, index) => {
-    projectArticles[index].hidden = index !== selected;
-    if (index === selected) link.setAttribute('aria-current', 'true');
-    else link.removeAttribute('aria-current');
-  });
-  return true;
+const catalog = document.querySelector('#projekte');
+const controls = catalog.querySelector('.tour-controls');
+const control = controls.querySelector('button');
+const bar = controls.querySelector('.tour-track span');
+const jump = catalog.querySelector('.project-jump');
+const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const interval = 10000;
+let current = 0;
+
+function projectIndex(hash) {
+  return projectArticles.findIndex(article =>
+    hash === '#' + article.id || hash === '#' + article.getAttribute('aria-labelledby'));
 }
 
-const catalog = document.querySelector('#projekte');
-const control = catalog.querySelector('.tour-control');
-const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const directEntry = selectProject(location.hash);
-if (!directEntry) selectProject(projectLinks[0].hash);
+function selectProject(index) {
+  current = index;
+  projectArticles.forEach((article, i) => {
+    article.inert = i !== index;
+    if (i === index) projectLinks[i].setAttribute('aria-current', 'true');
+    else projectLinks[i].removeAttribute('aria-current');
+  });
+  jump.hash = projectArticles[index].getAttribute('aria-labelledby');
+}
 
-let playing = !motion.matches && !directEntry && !catalog.contains(document.activeElement);
+const initial = projectIndex(location.hash);
+catalog.querySelector('.project-details').classList.add('is-interactive');
+selectProject(initial < 0 ? 0 : initial);
+jump.hidden = false;
+
+let reducedMotion = motion.matches;
+let playing = initial < 0 && !reducedMotion;
 let visible = false;
 let hovering = false;
-let timer;
+let focused = catalog.contains(document.activeElement);
+let frame;
+let deadline;
+
+function tick(now) {
+  if (now >= deadline) {
+    selectProject((current + 1) % projectLinks.length);
+    deadline = now + interval;
+  }
+  if (!reducedMotion) bar.style.transform = 'scaleX(' + ((deadline - now) / interval) + ')';
+  frame = requestAnimationFrame(tick);
+}
 
 function scheduleTour() {
-  clearTimeout(timer);
-  control.textContent = playing ? 'Rundgang pausieren' : 'Rundgang starten';
-  if (!playing || !visible || document.hidden || hovering) return;
-  timer = setTimeout(() => {
-    const current = projectArticles.findIndex(article => !article.hidden);
-    selectProject(projectLinks[(current + 1) % projectLinks.length].hash);
-    scheduleTour();
-  }, 10000);
+  cancelAnimationFrame(frame);
+  control.textContent = playing ? 'Pause' : 'Start';
+  control.setAttribute('aria-label', playing ? 'Rundgang pausieren' : 'Rundgang starten');
+  if (!playing || !visible || hovering || focused || document.hidden) return;
+  bar.style.transform = 'scaleX(1)';
+  deadline = performance.now() + interval;
+  frame = requestAnimationFrame(tick);
 }
 
 function pauseTour() {
@@ -47,7 +70,7 @@ function pauseTour() {
 }
 
 if ('IntersectionObserver' in window) {
-  control.hidden = false;
+  controls.hidden = false;
   new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
     scheduleTour();
@@ -56,43 +79,72 @@ if ('IntersectionObserver' in window) {
     hovering = event.pointerType === 'mouse';
     scheduleTour();
   });
+  catalog.addEventListener('pointerover', event => {
+    if (event.pointerType === 'mouse' && !hovering && !control.contains(event.target)) {
+      hovering = true;
+      scheduleTour();
+    }
+  });
   catalog.addEventListener('pointerleave', () => {
+    if (!hovering) return;
     hovering = false;
     scheduleTour();
   });
-  // Beim Mausklick auf Pause kommt focusin vor click. Die beabsichtigte
-  // Aktion deshalb vor dem Fokuswechsel festhalten.
-  let pointerAction;
-  control.addEventListener('pointerdown', () => { pointerAction = !playing; });
-  control.addEventListener('pointercancel', () => { pointerAction = undefined; });
-  catalog.addEventListener('focusin', pauseTour);
-  control.addEventListener('click', event => {
-    playing = event.detail && pointerAction !== undefined ? pointerAction : !playing;
-    pointerAction = undefined;
-    if (playing) hovering = false;
+  catalog.addEventListener('focusin', () => {
+    focused = true;
+    scheduleTour();
+  });
+  catalog.addEventListener('focusout', event => {
+    if (catalog.contains(event.relatedTarget)) return;
+    focused = false;
+    scheduleTour();
+  });
+  control.addEventListener('click', () => {
+    playing = !playing;
+    if (playing) {
+      hovering = false;
+      focused = false;
+      if (projectIndex(location.hash) >= 0) {
+        history.replaceState({ project: current }, '', '#' + catalog.id);
+      }
+    }
     scheduleTour();
   });
   document.addEventListener('visibilitychange', scheduleTour);
-  motion.addEventListener('change', () => {
-    if (motion.matches) pauseTour();
+  motion.addEventListener('change', event => {
+    reducedMotion = event.matches;
+    if (reducedMotion) pauseTour();
   });
   scheduleTour();
 }
 
-// Vor dem nativen Sprung auch ein momentan verborgenes Ziel einblenden.
 document.addEventListener('click', event => {
   const link = event.target.closest('a[href^="#"]');
-  if (link && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
-    if (selectProject(link.hash)) pauseTour();
-  }
-});
-window.addEventListener('hashchange', () => {
-  if (selectProject(location.hash)) {
-    pauseTour();
-    document.querySelector(location.hash).scrollIntoView();
+  if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey ||
+      event.metaKey || event.shiftKey || event.altKey) return;
+  const index = projectIndex(link.hash);
+  if (index < 0) return;
+  const previous = current;
+  pauseTour();
+  selectProject(index);
+  if (projectLinks.includes(link)) {
+    event.preventDefault();
+    link.focus({ preventScroll: true });
+    if (link.hash !== location.hash) {
+      history.replaceState({ ...history.state, project: previous }, '');
+      history.pushState({ project: index }, '', link.hash);
+    }
   }
 });
 
+window.addEventListener('popstate', event => {
+  const index = projectIndex(location.hash);
+  const restored = index >= 0 ? index : event.state?.project;
+  if (restored !== undefined) {
+    selectProject(restored);
+    pauseTour();
+  }
+});
 
 // Der oberste erreichte Abschnitt bestimmt die aktive Navigation.
 const sectionLinks = [...document.querySelectorAll('.nav-list a')];

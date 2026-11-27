@@ -41,43 +41,57 @@
 
     <section id="projekte" class="section" aria-labelledby="projekte-title">
       <div class="container">
-        <div class="catalog-heading">
-          <h2 id="projekte-title">Projektarchiv</h2>
-          <button type="button" class="tour-control" hidden>Rundgang starten</button>
-        </div>
+        <h2 id="projekte-title">Projektarchiv</h2>
         <div class="catalog">
-          <nav class="project-list" aria-label="Projektauswahl">
-            <a href="#plantbuddy"><img src="assets/projekte/plantbuddy.webp" alt="" loading="lazy"><span><strong>PlantBuddy</strong><small>App-Konzept im Team</small></span></a>
-            <a href="#homelab"><img src="assets/projekte/homelab.webp" alt="" loading="lazy"><span><strong>Homelab</strong><small>Eigene Dienste mit Proxmox</small></span></a>
-            <a href="#portal-islands"><img src="assets/projekte/portal-islands.webp" alt="" loading="lazy"><span><strong>Portal Islands</strong><small>Minecraft-Mod für Inselexpeditionen</small></span></a>
-            <a href="#dashboard"><img src="assets/projekte/dashboard.webp" alt="" loading="lazy"><span><strong>Dashboard</strong><small>Konzept für eine private Webübersicht</small></span></a>
-            <a href="#escape-the-tide"><img src="assets/projekte/escape-the-tide.webp" alt="" loading="lazy"><span><strong>Escape the Tide</strong><small>Taktikrätsel mit steigender Flut</small></span></a>
-          </nav>
+          <div class="catalog-sidebar">
+            <nav class="project-list" aria-label="Projektauswahl">
+              <a href="#plantbuddy"><img src="assets/projekte/plantbuddy.webp" width="860" height="560" alt="" loading="lazy"><span><strong>PlantBuddy</strong><small>App-Konzept im Team</small></span></a>
+              <a href="#homelab"><img src="assets/projekte/homelab.webp" width="865" height="595" alt="" loading="lazy"><span><strong>Homelab</strong><small>Eigene Dienste mit Proxmox</small></span></a>
+              <a href="#portal-islands"><img src="assets/projekte/portal-islands.webp" width="860" height="598" alt="" loading="lazy"><span><strong>Portal Islands</strong><small>Minecraft-Mod für Inselexpeditionen</small></span></a>
+              <a href="#dashboard"><img src="assets/projekte/dashboard.webp" width="870" height="575" alt="" loading="lazy"><span><strong>Dashboard</strong><small>Konzept für eine private Webübersicht</small></span></a>
+              <a href="#escape-the-tide"><img src="assets/projekte/escape-the-tide.webp" width="870" height="582" alt="" loading="lazy"><span><strong>Escape the Tide</strong><small>Taktikrätsel mit steigender Flut</small></span></a>
+            </nav>
+            <div class="tour-controls" hidden>
+              <span class="tour-track" aria-hidden="true"><span></span></span>
+              <button type="button" class="tour-control" aria-label="Rundgang starten">Start</button>
+            </div>
+            <a class="project-jump" href="#plantbuddy-title" hidden>Zum ausgewählten Projekt</a>
+          </div>
           <div class="project-details">
             <article id="plantbuddy" aria-labelledby="plantbuddy-title">
-              <h3 id="plantbuddy-title">PlantBuddy</h3>
-              <p>Für WGs und Büros haben wir im Modul WPR1 ein Konzept für die gemeinsame Pflanzenpflege erarbeitet. Im Team entstanden der Projektauftrag, die Systemziele und die Grobanforderungen.</p>
-              <img src="assets/projekte/plantbuddy.webp" loading="lazy" alt="">
+              <div>
+                <h3 id="plantbuddy-title" tabindex="-1">PlantBuddy</h3>
+                <p>Für WGs und Büros haben wir im Modul WPR1 ein Konzept für die gemeinsame Pflanzenpflege erarbeitet. Im Team entstanden der Projektauftrag, die Systemziele und die Grobanforderungen.</p>
+              </div>
+              <img src="assets/projekte/plantbuddy.webp" width="860" height="560" loading="lazy" alt="">
             </article>
             <article id="homelab" aria-labelledby="homelab-title">
-              <h3 id="homelab-title">Homelab</h3>
-              <p>In meinem Homelab betreibe ich eigene Dienste und beschäftige mich mit Virtualisierung, Netzwerken und Datensicherung. Interne Anwendungen und öffentlich erreichbare Gameserver laufen in getrennten Netzbereichen.</p>
-              <img src="assets/projekte/homelab.webp" loading="lazy" alt="">
+              <div>
+                <h3 id="homelab-title" tabindex="-1">Homelab</h3>
+                <p>In meinem Homelab betreibe ich eigene Dienste und beschäftige mich mit Virtualisierung, Netzwerken und Datensicherung. Interne Anwendungen und öffentlich erreichbare Gameserver laufen in getrennten Netzbereichen.</p>
+              </div>
+              <img src="assets/projekte/homelab.webp" width="865" height="595" loading="lazy" alt="">
             </article>
             <article id="portal-islands" aria-labelledby="portal-islands-title">
-              <h3 id="portal-islands-title">Portal Islands</h3>
-              <p>Die Mod führt Spieler gemeinsam auf Expeditionen. Eine Herausforderung ist die Rückkehr: Jede Person soll nach der gemeinsamen Reise ihren eigenen Ausgangspunkt wieder erreichen.</p>
-              <img src="assets/projekte/portal-islands.webp" loading="lazy" alt="">
+              <div>
+                <h3 id="portal-islands-title" tabindex="-1">Portal Islands</h3>
+                <p>Die Mod führt Spieler gemeinsam auf Expeditionen. Eine Herausforderung ist die Rückkehr: Jede Person soll nach der gemeinsamen Reise ihren eigenen Ausgangspunkt wieder erreichen.</p>
+              </div>
+              <img src="assets/projekte/portal-islands.webp" width="860" height="598" loading="lazy" alt="">
             </article>
             <article id="dashboard" aria-labelledby="dashboard-title">
-              <h3 id="dashboard-title">Dashboard</h3>
-              <p>Kalender, Aufgaben, Wetter und ÖV sollen auf einen Blick zeigen, was für den Tag ansteht. Das Tablet illustriert das Konzept mit Beispieldaten.</p>
-              <img src="assets/projekte/dashboard.webp" loading="lazy" alt="">
+              <div>
+                <h3 id="dashboard-title" tabindex="-1">Dashboard</h3>
+                <p>Kalender, Aufgaben, Wetter und ÖV sollen auf einen Blick zeigen, was für den Tag ansteht. Das Tablet illustriert das Konzept mit Beispieldaten.</p>
+              </div>
+              <img src="assets/projekte/dashboard.webp" width="870" height="575" loading="lazy" alt="">
             </article>
             <article id="escape-the-tide" aria-labelledby="escape-the-tide-title">
-              <h3 id="escape-the-tide-title">Escape the Tide</h3>
-              <p>Mit jedem gültigen Schritt breitet sich das Wasser aus. Vor dem ersten Zug kannst du eine Barriere setzen. Sie schützt deinen Weg und kann dir zugleich den Ausgang versperren.</p>
-              <img src="assets/projekte/escape-the-tide.webp" loading="lazy" alt="">
+              <div>
+                <h3 id="escape-the-tide-title" tabindex="-1">Escape the Tide</h3>
+                <p>Mit jedem gültigen Schritt breitet sich das Wasser aus. Vor dem ersten Zug kannst du eine Barriere setzen. Sie schützt deinen Weg und kann dir zugleich den Ausgang versperren.</p>
+              </div>
+              <img src="assets/projekte/escape-the-tide.webp" width="870" height="582" loading="lazy" alt="">
             </article>
           </div>
         </div>

@@ -310,14 +310,43 @@ figcaption small { display: block; font: .9rem/1.5 var(--font-body); }
 .project-list img, .project-list small { display: none; }
 .project-details article { padding-block: 1rem; }
 .project-details h3 { font: 500 clamp(2rem, 5vw, 4rem)/1.1 Georgia, serif; }
-.project-details img { display: block; width: 100%; height: auto; object-fit: contain; }
+.project-details img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; }
 @media (min-width: 48rem) {
   .catalog { display: grid; grid-template-columns: minmax(15rem, 1fr) minmax(0, 2fr); gap: 2rem; }
   .project-list { display: grid; }
-  .project-list img { display: block; width: 28%; height: auto; object-fit: contain; }
+  .project-list img { display: block; width: 28%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; }
   .project-list small { display: block; margin-top: .3rem; color: var(--color-muted); }
   .project-details article { padding-top: 0; }
 }
 
-.catalog-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0 1rem; }
-.tour-control { padding: .65rem 1rem; margin-bottom: 1rem; border: 0; border-radius: var(--radius); background: var(--color-accent); color: #21160b; font: inherit; cursor: pointer; }
+/* Alle fünf Texte bestimmen gemeinsam die Höhe der ersten Zeile. */
+.project-details.is-interactive {
+  display: grid;
+  grid-template-rows: auto auto;
+  align-content: start;
+}
+.project-details.is-interactive article {
+  grid-area: 1 / 1 / span 2;
+  display: grid;
+  grid-template-rows: subgrid;
+  min-width: 0;
+}
+.project-details article[inert] { visibility: hidden; }
+
+.tour-controls { display: flex; align-items: center; gap: .75rem; margin-block: .75rem; }
+.tour-track { flex: 1; height: .2rem; background: var(--color-border); }
+.tour-track span { display: block; height: 100%; background: var(--color-accent); transform-origin: left; }
+.tour-control {
+  width: 8ch;
+  padding: .35em .5em;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: #21160b;
+  font: inherit;
+  cursor: pointer;
+}
+.project-jump { font-size: .9em; }
+@media (min-width: 48rem) {
+  .project-jump { display: none; }
+}
