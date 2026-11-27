@@ -2,24 +2,36 @@
 
 Persönliches Portfolio für das Modul Web Engineering an der BFH, umgesetzt mit HTML, CSS und JavaScript ohne Framework und ohne Build-Schritt.
 
-## Projektarchiv
+Im Projektarchiv lassen sich PlantBuddy, Homelab, Portal Islands, Dashboard und Escape the Tide direkt auswählen und über eigene Sprungziele verlinken. Ohne JavaScript sind alle fünf Projektartikel untereinander lesbar.
 
-PlantBuddy, Homelab, Portal Islands, Dashboard und Escape the Tide lassen sich direkt auswählen. Auf schmalen Bildschirmen steht die Auswahl über der Beschreibung. Ohne JavaScript sind alle fünf Projektartikel unter ihren eigenen Sprungzielen lesbar.
+Der Rundgang wechselt alle zehn Sekunden zum nächsten Projekt. Solange der Mauszeiger im Projektbereich liegt, der Bereich ausser Sicht ist oder der Tab im Hintergrund liegt, ruht der Timer. Eine manuelle Auswahl, ein Projekt-Direktlink oder Tastaturfokus im Projektbereich pausiert den Rundgang bis zum nächsten Klick auf «Rundgang starten». Dann beginnt ein volles Zehn-Sekunden-Intervall. Bei reduzierter Bewegung startet der Rundgang pausiert.
 
-Der sichtbare Katalog wechselt alle zehn Sekunden zum nächsten Projekt. Eine manuelle Wahl, ein Direktlink oder Tastaturfokus pausiert den Rundgang. «Rundgang starten» beginnt ein volles Intervall. Hover, Hintergrundtab und ein Katalog ausserhalb des Sichtfelds unterbrechen den Timer. Bei reduzierter Bewegung startet der Rundgang pausiert.
+[Live-Seite auf GitHub Pages](https://titoa123.github.io/portfolio-page/)
 
-## Aufbau
+## Technologien
 
-- `index.html` enthält alle fünf Bereiche und die Projektartikel.
-- `css/styles.css` gestaltet Navigation, Layout, Fokus und Bilddarstellung.
-- `js/main.js` steuert Auswahl, Rundgang, aktive Navigation und Jahresanzeige.
-- `assets/projekte/` enthält die fünf WebP-Motive für Miniaturen und Detailansicht. Die übrigen Illustrationen stehen unter `assets/seiten/`.
+- **HTML** gliedert die Seite in Start, Projekte, Skills, Über mich und Hobbys. Ein Sprunglink führt direkt zum Hauptinhalt.
+- **CSS** ordnet die Projektauswahl auf schmalen Bildschirmen über der Detailansicht an. Ab 48rem stehen Auswahl und Detail nebeneinander, und die Auswahlliste zeigt Miniaturen. Sichtbare Fokusrahmen unterstützen die Tastaturbedienung.
+- **JavaScript** steuert als ES-Modul die Projektauswahl und den Rundgang, markiert den aktiven Navigationsabschnitt und aktualisiert die Jahreszahl im Footer.
+- **GitHub Pages** veröffentlicht die statischen Dateien aus dem Stammverzeichnis von `main`.
 
-GitHub Pages veröffentlicht den Stand auf `main` unter [portfolio-page](https://titoa123.github.io/portfolio-page/). Relative Ressourcenpfade unterstützen diesen Unterordner.
+## Struktur
+
+```text
+index.html         Startseite mit allen Abschnitten und Projektartikeln
+css/styles.css     Layout, Typografie, Fokus und Bilddarstellung
+js/main.js         Projektauswahl, Rundgang, Navigation und Jahresanzeige
+assets/projekte/   Fünf WebP-Motive für Miniaturen und Grossansichten
+assets/seiten/     Bilder für Start, Profil und Hobbys
+CHANGELOG.md       Änderungen und Prüfergebnisse pro Arbeitspaket
+README.md          Projektübersicht
+```
+
+Die Ressourcenpfade sind relativ, damit die Seite auch unter dem GitHub-Pages-Pfad `/portfolio-page/` lädt.
 
 ## Lokal starten
 
-Im Repository-Stamm einen lokalen HTTP-Server starten (ES-Module laden nicht über `file://`):
+Mit Node.js und npm im Repository-Stamm einen HTTP-Server starten:
 
 ```bash
 npx http-server -p 8080 -c-1
@@ -29,4 +41,4 @@ Danach <http://localhost:8080/> im Browser öffnen.
 
 ## Fortschritt
 
-Die Änderungen pro Arbeitspaket stehen im [CHANGELOG.md](CHANGELOG.md).
+Das Redesign bis Ü11 ist integriert. Projektauswahl und Dokumentbreite wurden in Chromium, Firefox und WebKit bei 320, 768, 1024 und 1440 px geprüft. Die separate Screenreader-Prüfung in Schritt 4.2 ist offen. Einzelheiten stehen im [Changelog](CHANGELOG.md).
