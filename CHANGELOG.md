@@ -1,18 +1,20 @@
 # Changelog
 
-## Ü12 – Korrektur der Trefferfläche für Skills-Projektlinks
+## Überarbeitung Ü12 – Projektarchiv ohne Sprünge
 
-Auf `b4b69fd` in WebKit 27.2 bei 320 × 900 CSS-Pixeln reproduziert. Bei aktivem Dashboard wurde der Skills-Link «Zum Projekt PlantBuddy» ins Sichtfeld gescrollt. Link und Text lieferten mit `getClientRects()` jeweils 193,28 × 0 px. Am sichtbaren Schriftzug (21, 450) traf `elementFromPoint()` den Absatz. Ein Mausklick an dieser Stelle liess Dashboard aktiv. Enter zeigte PlantBuddy an. In Chromium 159.0.8154.6 und Firefox 159.0 funktionierten beide Eingaben bereits vor der Korrektur.
+### Neu
 
-Die beiden Skills-Links erhalten mit `.skill a { display: inline-block; }` eine Trefferfläche in Zeilenhöhe. In WebKit misst der PlantBuddy-Link nun 193,28 × 25,59 px. Obwohl der Textbereich weiterhin 0 px Höhe meldet, trifft dieselbe Koordinate jetzt den Link. Über den jeweiligen Skills-Link liessen sich PlantBuddy und Homelab in allen drei Engines ab Dashboard per Mauskoordinaten und per Tab/Enter öffnen. Projekthash, aktive Auswahl und sichtbarer Titel stimmten in allen zwölf Fällen. Der 3-px-Fokusrahmen war bei beiden Links in allen Engines sichtbar. Der lokale Firefox-Aufbau zeigte Ersatzglyphen. Die Prüfung mit echtem Screenreader (Schritt 4.2) und der Test auf Touch-Hardware bleiben separat offen.
+Im einspaltigen Layout führt «Zum ausgewählten Projekt» gezielt zum Titel.
 
-## Ü12 – Projektarchiv ohne Sprünge
+### Geändert
 
-Die Auswahl aktualisiert Detailansicht und Projekthash und lässt den Fokus auf dem Listenlink. Zurück und Vorwärts stellen die Auswahl wieder her. Im einspaltigen Layout führt «Zum ausgewählten Projekt» gezielt zum Titel. Ohne JavaScript bleiben alle fünf Artikel über ihre Fragmentlinks erreichbar.
+Die Auswahl aktualisiert Detailansicht und Projekthash und lässt den Fokus auf dem Listenlink. Zurück und Vorwärts stellen die Auswahl wieder her. Ohne JavaScript bleiben alle fünf Artikel über ihre Fragmentlinks erreichbar.
 
 Alle fünf Texte bestimmen über gemeinsame Grid-Zeilen den Platz oberhalb des Grossbildes. Intrinsische Masse und responsive 3:2-Flächen reservieren den Platz für Grossbilder und Miniaturen. Die äusseren Studioflächen aller fünf WebPs laufen in den gemessenen Seitenhintergrund `#100e0c` aus. Die Bearbeitung verwendet ImageGen für die Randbereiche und das jeweilige Original für Motiv und Bodenkontakt.
 
 Unter der Liste bedienen Start und Pause den Zehn-Sekunden-Rundgang. Balken und Wechsel verwenden denselben Endzeitpunkt. Manuelle Auswahl und Pause bleiben bestehen, bis Start aktiviert wird. Bei reduzierter Bewegung beginnt der Rundgang pausiert und lässt sich mit ruhendem Balken bewusst starten.
+
+### Getestet
 
 Lokale Abnahme am 27.11.2026 mit dem Ü11-Playwright-Aufbau unter Linux:
 
@@ -22,11 +24,28 @@ Lokale Abnahme am 27.11.2026 mit dem Ü11-Playwright-Aufbau unter Linux:
 - Chromium in Echtzeit: Dashboard blieb nach manueller Wahl und Verlassen des Katalogs 20 s sichtbar. Nach Start war bei 9,6 s weiterhin Dashboard ausgewählt, nach 10,013 s erschien Escape the Tide. Fokus und Scrollposition blieben erhalten, der Hash war `#projekte` und die History-Länge blieb gleich.
 - Explizite Pause, Start per Tastatur, Hover, Fokus, Rückkehr ins Sichtfeld sowie Aktivieren reduzierter Bewegung und bewusster Neustart mit ruhendem Balken geprüft. In einem tatsächlich verborgenen Chromium-Tab blieb die Auswahl über 10,5 s erhalten. Nach Rückkehr war sie nach 9,5 s noch gleich, nach 10,3 s erschien das nächste Projekt.
 - Zusatzbefund im headless WebKit-Aufbau bei 320 px: Der separate Textlink aus «Skills» zu PlantBuddy hatte bereits auf `e017410` eine gemessene Höhe von 0 px. Sein Tastatursprung funktioniert, der Mausklick auf diesen externen Einstieg bleibt in diesem Aufbau offen. Alle fünf Links der Archivliste waren per Maus bedienbar.
+
+### Korrigiert
+
+#### Korrektur der Trefferfläche für Skills-Projektlinks
+
+Auf `b4b69fd` in WebKit 27.2 bei 320 × 900 CSS-Pixeln reproduziert. Bei aktivem Dashboard wurde der Skills-Link «Zum Projekt PlantBuddy» ins Sichtfeld gescrollt. Link und Text lieferten mit `getClientRects()` jeweils 193,28 × 0 px. Am sichtbaren Schriftzug (21, 450) traf `elementFromPoint()` den Absatz. Ein Mausklick an dieser Stelle liess Dashboard aktiv. Enter zeigte PlantBuddy an. In Chromium 159.0.8154.6 und Firefox 159.0 funktionierten beide Eingaben bereits vor der Korrektur.
+
+Die beiden Skills-Links erhalten mit `.skill a { display: inline-block; }` eine Trefferfläche in Zeilenhöhe. In WebKit misst der PlantBuddy-Link nun 193,28 × 25,59 px. Obwohl der Textbereich weiterhin 0 px Höhe meldet, trifft dieselbe Koordinate jetzt den Link. Über den jeweiligen Skills-Link liessen sich PlantBuddy und Homelab in allen drei Engines ab Dashboard per Mauskoordinaten und per Tab/Enter öffnen. Projekthash, aktive Auswahl und sichtbarer Titel stimmten in allen zwölf Fällen. Der 3-px-Fokusrahmen war bei beiden Links in allen Engines sichtbar. Der lokale Firefox-Aufbau zeigte Ersatzglyphen. Die Prüfung mit echtem Screenreader (Schritt 4.2) und der Test auf Touch-Hardware bleiben separat offen.
+
+### Offene Punkte
+
 - Offen bleiben echte Touch-Eingabe auf Hardware und Schritt 4.2, die separate manuelle Screenreader-Prüfung.
 
 ## Überarbeitung Ü11 – Integration und Dokumentation
 
-README auf fünf Projekte und Rundgang aktualisiert, überholte CSS-Regeln für Filter und Karten entfernt. Unter /portfolio-page/ in QtWebEngine 5.15.2 (Chromium 83) alle fünf Projekte bei 320, 768, 1024 und 1440 px ausgewählt: passender Artikel sichtbar, kein horizontaler Dokumentüberlauf. Direktaufruf #dashboard und Wechsel von Escape the Tide zu PlantBuddy nach Neustart geprüft. Zusätzlich alle lokalen Ressourcenpfade, internen Sprungziele und WebP-Dateien geprüft.
+### Geändert
+
+README auf fünf Projekte und Rundgang aktualisiert, überholte CSS-Regeln für Filter und Karten entfernt.
+
+### Getestet
+
+Unter /portfolio-page/ in QtWebEngine 5.15.2 (Chromium 83) alle fünf Projekte bei 320, 768, 1024 und 1440 px ausgewählt: passender Artikel sichtbar, kein horizontaler Dokumentüberlauf. Direktaufruf #dashboard und Wechsel von Escape the Tide zu PlantBuddy nach Neustart geprüft. Zusätzlich alle lokalen Ressourcenpfade, internen Sprungziele und WebP-Dateien geprüft.
 
 Lokale Abnahme am 27.11.2026 mit Playwright 1.65.1 unter Linux (headless):
 
@@ -35,7 +54,9 @@ Lokale Abnahme am 27.11.2026 mit Playwright 1.65.1 unter Linux (headless):
 - Sichtprüfung in allen drei Engines: Alle fünf Objektmotive waren in den Grossansichten bei 320 und 1440 px sowie in den fünf Desktop-Miniaturen vollständig sichtbar.
 - Chromium bei 1440 px: Dashboard per Mausklick gewählt und den Zeiger aus dem Projektbereich bewegt. Nach 20 Sekunden war Dashboard weiterhin sichtbar. Nach Klick auf «Rundgang starten» wurde Dashboard nach 10,0003 Sekunden durch Escape the Tide ersetzt.
 
-### Korrektur des Firefox-Überlaufs
+### Korrigiert
+
+#### Korrektur des Firefox-Überlaufs
 
 Auf Stand `6b9fbf0` lag der Überlauf bereits vor dem ersten Klick vor. In Firefox 159.0 waren im ursprünglichen lokalen Testaufbau bei 320 CSS-px nur 288 px Inhaltsbreite verfügbar. Lange Wörter ohne innere Umbruchstelle bestimmten die Mindestbreite der Grid-Spalten. Die einzelne `1fr`-Spalte von `.skill-list` wurde bei automatischer Mindestbreite der Grid-Elemente 504 px breit. Ihre rechte Kante lag bei 16 + 504 = 520 px. Auch der Textblock im Einstieg reichte bis 496 px. Mit dem zusätzlichen Datenpfad der temporären Browserlaufzeit (`XDG_DATA_DIRS`) passte das ursprüngliche Layout in 320 px.
 
@@ -48,27 +69,41 @@ In `css/styles.css` erlaubt `overflow-wrap: anywhere` am Body einen Umbruch inne
 
 Nachprüfung mit Chromium 159.0.8154.6, Firefox 159.0 und WebKit 27.2 bei 320, 768, 1024 und 1440 CSS-px: In allen 60 Auswahlen war genau der passende Artikel sichtbar und der zugehörige Link aktiv. `clientWidth` und `scrollWidth` entsprachen jeweils der Viewportbreite. Die Sichtkontrolle aller fünf Grossansichten bei 320 und 1440 px sowie der fünf Miniaturen bei 1440 px zeigte in allen drei Engines vollständige Motive.
 
+### Offene Punkte
+
 Schritt 4.2 bleibt für die separate Screenreader-Prüfung offen.
 
 ## Überarbeitung Ü10 – Automatischer Projektrundgang
+
+### Neu
 
 Sichtbare Projekte wechseln alle zehn Sekunden. Manuelle Auswahl, Direktlinks und Tastaturfokus pausieren dauerhaft bis zum bewussten Neustart. Bei reduzierter Bewegung startet der Katalog pausiert.
 
 ## Überarbeitung Ü9 – Projektkatalog
 
-Fünf Projekte mit direkter Auswahl, Objektbildern und stabilen Sprungzielen. Ohne JavaScript sind alle fünf Artikel lesbar. Der Kategorienfilter entfällt.
+### Neu
+
+Fünf Projekte mit direkter Auswahl, Objektbildern und stabilen Sprungzielen. Ohne JavaScript sind alle fünf Artikel lesbar.
+
+### Entfernt
+
+Der Kategorienfilter entfällt.
 
 ## Überarbeitung Ü8 – Grundlayout und Seiten
+
+### Geändert
 
 Start, Skills, Profil und Hobbys im Archivstil gestaltet. Aktiver Navigationspunkt beim Scrollen, bestehender Projektfilter und Sprungziele erhalten.
 
 ## Überarbeitung Ü7 – Projektgrafiken
 
+### Neu
+
 Fünf vollständige Objektmotive als WebP für die gemeinsame Nutzung in Miniatur und Detail vorbereitet.
 
 ## 2026-11-25 – Arbeitspaket 4.1 – Browser-Kompatibilität
 
-### Was
+### Prüfumfang
 
 - Die Seite ist in drei Browser-Engines getestet: Chromium, Firefox und WebKit. Grundlage ist der lokale Stand nach Ü6 (`eac0c35`).
 - Es wurde kein Darstellungs- oder Funktionsfehler der Seite gefunden. Code (`index.html`, `css/styles.css`, `js/main.js`) und README sind unverändert.
@@ -170,7 +205,7 @@ In Firefox zählt die Ü1-Reihe 1393 Prüfungen. Nach dem letzten Link springt d
 
 ## 2026-11-25 – Überarbeitung Ü6 – Dokumentation aktualisieren
 
-### Was
+### Geändert
 
 - **README, Abschnitt «Technologien»:**
   - CSS: `scroll-margin-top` ersetzt durch `scroll-padding-top` für Sprungziele. Ergänzt: `position: sticky` gilt für die Kopfzeile ab 48rem, `repeat(auto-fit, minmax())` für die Projektkarten.
@@ -211,7 +246,7 @@ In Firefox zählt die Ü1-Reihe 1393 Prüfungen. Nach dem letzten Link springt d
 
 ## 2026-11-23 – Überarbeitung Ü5 – Karten und Abstände abstimmen
 
-### Was
+### Geändert
 
 - **Projektkarten:**
   - Das Raster nutzt `repeat(auto-fit, minmax(min(100%, 24rem), 1fr))`.
@@ -226,13 +261,16 @@ In Firefox zählt die Ü1-Reihe 1393 Prüfungen. Nach dem letzten Link springt d
 - **Abstände:**
   - Der Einstieg hat unten nur noch `--space-m`. Der Abstand vom Knopf «Projekte ansehen» zur Überschrift «Projekte» ist dadurch kleiner: 48 px statt 96 px mobil, 80 px statt 128 px ab 768 px.
   - Neue Klasse `section-compact` für «Über mich» und «Hobbys»: ab 768 px Innenabstand `--space-l` (32 px) statt `--space-xl` (64 px).
+
+### Korrigiert
+
 - **Fokusrahmen der Filter-Schaltflächen:**
   - Der Rahmen liegt bei `:focus-visible` innen (`outline-offset: -3px`) statt 3 px ausserhalb.
   - Ein weisser Innenstreifen (`box-shadow: inset`) trennt ihn von der grünen Füllung der aktiven Auswahl.
   - Zusätzlich lässt `scroll-margin-block: var(--space-m)` etwas Luft zum Fensterrand, wenn der Browser beim Fokus scrollt.
 - Texte und Filterlogik sind unverändert.
 
-### Befund zum Fokusrahmen
+#### Befund zum Fokusrahmen
 
 - Nachgestellt bei 375 × 700 px vor der Änderung: Beim Vorwärts-Tabben lag die Unterkante aller drei Filter-Schaltflächen genau am Fensterrand (700 von 700 px). Der Fokusrahmen (3 px Breite plus 3 px Abstand) ragte 6 px darüber hinaus.
 - Kein Container schneidet ab: Kein Vorfahre hat ein `overflow` ausser `visible`. Ursache ist der Fensterrand. Chromium scrollt beim Fokus nicht, solange die Schaltfläche selbst vollständig sichtbar ist, und berücksichtigt dabei weder den Rahmen ausserhalb noch `scroll-margin`.
@@ -293,7 +331,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless):
 
 ## 2026-11-23 – Überarbeitung Ü4 – Texte straffen
 
-### Was
+### Geändert
 
 Fünf Texte angepasst. Die Projektbeschreibungen von PlantBuddy (Ü2) und Homelab bleiben unverändert.
 
@@ -354,9 +392,12 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 144
 
 ## 2026-11-23 – Überarbeitung Ü3 – Kontakt und Profil bereinigen
 
-### Was
+### Entfernt
 
 - Ein für diese Seite bestätigter öffentlicher Kontaktweg liegt nicht vor. Deshalb sind der Abschnitt «Kontakt» (`#kontakt`) mit dem Satz «Ein beruflicher Profil-Link folgt in Kürze.» und der Navigationslink «Kontakt» gemeinsam entfernt.
+
+### Geändert
+
 - Die Meta-Beschreibung nennt «Kontakt» nicht mehr: «Portfolio von Alessandro: Projekte, Skills und Profil.»
 - «Über mich» ist unverändert, weil die genaue Studienbezeichnung nicht bestätigt ist.
 - Die Navigation hat jetzt fünf Einträge: Start, Projekte, Skills, Über mich, Hobbys. Letzter Abschnitt vor dem Footer ist «Hobbys».
@@ -403,9 +444,12 @@ Weitere offene Punkte:
 
 ## 2026-11-23 – Überarbeitung Ü2 – PlantBuddy auf belegte Inhalte kürzen
 
-### Was
+### Geändert
 
 - Die PlantBuddy-Karte zeigt nur noch Titel, Label «Studienprojekt · Teamkonzept» und eine Kurzbeschreibung: «PlantBuddy entstand im Modul WPR1 als Teamkonzept für eine App, mit der WGs und Büros die gemeinsame Pflanzenpflege organisieren können. Im Team erarbeiteten wir den Projektauftrag, die Systemziele und die Grobanforderungen.»
+
+### Entfernt
+
 - Entfernt sind:
   - die vier Unterabschnitte (Ausgangslage, Mein Beitrag, Von der Ausgangslage zur Anforderung, Ergebnis und Beleg);
   - die drei sichtbaren Platzhalter;
@@ -456,7 +500,7 @@ Weitere offene Punkte:
 
 ## 2026-11-23 – Überarbeitung Ü1 – Mobile Kopfzeile und Sprungziele
 
-### Was
+### Korrigiert
 
 - Die Kopfzeile scrollt unter 48rem (768 px) normal mit (`position: static`). Erst ab 48rem ist sie fixiert (`position: sticky`). Alle Navigationslinks bleiben auf jeder Breite sichtbar.
 - Die Regeln `scroll-margin-top: 6rem` auf `section` und `.card` sind entfernt und durch `scroll-padding-top` auf `html` ersetzt, damit sich keine Abstände doppeln:
@@ -501,9 +545,12 @@ Lokal mit `http-server` und Playwright (Chromium, headless). Insgesamt 1390 Prü
 
 ## 2026-11-20 – Arbeitspaket 3.2 – Projektfilter
 
-### Was
+### Geändert
 
 - Label von PlantBuddy von «Teamkonzept · Fallbeispiel» zu «Studienprojekt · Teamkonzept» geändert; Homelab behält «Praxisprojekt».
+
+### Neu
+
 - Im Projektbereich drei Filter-Schaltflächen «Alle», «Studium» und «Praxis» ergänzt (native `<button type="button">` in einer `role="group"` mit sichtbarer Beschriftung «Projekte filtern»). Standardmässig ist «Alle» aktiv.
 - `js/main.js`: Der Filter liest `dataset.category` der Karten und blendet sie mit dem `hidden`-Attribut ein oder aus. `aria-pressed` zeigt den aktiven Filter an; ein Statusbereich (`role="status"`) meldet z. B. «1 von 2 Projekten angezeigt». Der Fokus bleibt auf der betätigten Schaltfläche.
 - Der Filterbereich steht im HTML mit `hidden` und wird erst nach erfolgreicher Initialisierung eingeblendet. Ohne JavaScript sind keine Filter zu sehen und alle Karten sichtbar.
@@ -552,7 +599,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless), Filter-Testreihe be
 
 ## 2026-11-20 – Arbeitspaket 3.1 – Projektkategorien vorbereiten
 
-### Was
+### Neu
 
 - Die beiden Projektkarten in `index.html` haben ein `data-category`-Attribut erhalten: PlantBuddy `data-category="studium"`, Homelab `data-category="praxis"`.
 - Sichtbare Inhalte, Layout und CSS sind unverändert. Die Labels auf den Karten bleiben «Teamkonzept · Fallbeispiel» (PlantBuddy) und «Praxisprojekt» (Homelab).
@@ -585,7 +632,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 192
 
 ## 2026-11-20 – Arbeitspaket 2.3 – Skills und Profil
 
-### Was
+### Geändert
 
 - Skills präzisiert: Jeder Skill hat jetzt eine eigene Überschrift (`h3`) und eine kurze, konkrete Beschreibung.
   - **Kundenbetreuung und Softwareverkauf:** Erfahrung in der Kundenbetreuung und im Verkauf von Software, heute als Kundenbetreuer Business Software.
@@ -630,7 +677,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 192
 
 ## 2026-11-20 – Arbeitspaket 2.2 – Homelab-Fallbeispiel
 
-### Was
+### Geändert
 
 - Homelab-Karte (`#homelab`) überarbeitet und für die öffentliche Seite auf einen kurzen Überblick vereinfacht: ein Absatz dazu, woran ich arbeite und welche Themen das Projekt abdeckt (Proxmox, Virtualisierung, Netzwerke, Datensicherung, Trennung von internen Diensten und öffentlich erreichbaren Gameservern).
 - Vereinfachung: Eine erste Fassung (Commit 6a5cecd) enthielt die Unterabschnitte «Ausgangslage», «Architekturentscheidung», «Mein Beitrag» und «Ergebnis», eine vereinfachte Netzgrafik und zwei Platzhalter. Diese Teile wurden wieder entfernt, ebenso die nicht mehr verwendeten CSS-Regeln (Zonen-Grafik, `.case-step-wide`, Zonenfarben).
@@ -670,7 +717,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 192
 
 ## 2026-11-20 – Arbeitspaket 2.1 – PlantBuddy-Fallbeispiel
 
-### Was
+### Neu
 
 - Bestehende PlantBuddy-Karte (`#plantbuddy`) zu einem Fallbeispiel erweitert, gegliedert in «Ausgangslage», «Mein Beitrag», «Von der Ausgangslage zur Anforderung» und «Ergebnis und Beleg» (je `section` mit `h4` unter dem `h3` der Karte).
 - Ausgangslage mit den belegten Angaben: Modul WPR1, Teamkonzept für eine App zur gemeinsamen Pflanzenpflege in WGs und Büros, Teamarbeit umfasste Projektauftrag, Systemziele und Grobanforderungen.
@@ -716,7 +763,7 @@ Lokal mit `http-server` und Playwright (Chromium, headless) bei 320, 768 und 192
 
 ## 2026-11-20 – Arbeitspaket 1 – Portfolio-Grundgerüst
 
-### Was
+### Neu
 
 - `index.html` (de-CH) mit den Abschnitten Start, Projekte, Skills, Über mich, Hobbys und Kontakt sowie einer Abschnittsnavigation erstellt.
 - Projektkarten für PlantBuddy (Teamkonzept) und das Homelab (Proxmox, getrennte Netze) angelegt; Skills «Requirements Engineering» und «Netzwerksegmentierung» verlinken auf die passenden Projekte.
