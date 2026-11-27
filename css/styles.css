@@ -46,6 +46,7 @@ html {
 }
 
 body {
+  overflow-wrap: anywhere;
   margin: 0;
   font-family: var(--font-body);
   font-size: var(--font-size-base);

@@ -11,7 +11,20 @@ Lokale Abnahme am 27.11.2026 mit Playwright 1.65.1 unter Linux (headless):
 - Sichtprüfung in allen drei Engines: Alle fünf Objektmotive waren in den Grossansichten bei 320 und 1440 px sowie in den fünf Desktop-Miniaturen vollständig sichtbar.
 - Chromium bei 1440 px: Dashboard per Mausklick gewählt und den Zeiger aus dem Projektbereich bewegt. Nach 20 Sekunden war Dashboard weiterhin sichtbar. Nach Klick auf «Rundgang starten» wurde Dashboard nach 10,0003 Sekunden durch Escape the Tide ersetzt.
 
-Offen sind die Behebung und Nachprüfung des Firefox-Überlaufs bei 320 px. Schritt 4.2 folgt separat.
+### Korrektur des Firefox-Überlaufs
+
+Auf Stand `6b9fbf0` lag der Überlauf bereits vor dem ersten Klick vor. In Firefox 159.0 waren im ursprünglichen lokalen Testaufbau bei 320 CSS-px nur 288 px Inhaltsbreite verfügbar. Lange Wörter ohne innere Umbruchstelle bestimmten die Mindestbreite der Grid-Spalten. Die einzelne `1fr`-Spalte von `.skill-list` wurde bei automatischer Mindestbreite der Grid-Elemente 504 px breit. Ihre rechte Kante lag bei 16 + 504 = 520 px. Auch der Textblock im Einstieg reichte bis 496 px. Mit dem zusätzlichen Datenpfad der temporären Browserlaufzeit (`XDG_DATA_DIRS`) passte das ursprüngliche Layout in 320 px.
+
+In `css/styles.css` erlaubt `overflow-wrap: anywhere` am Body einen Umbruch innerhalb eines Wortes, wenn es sonst zu breit wäre. Diese Umbruchstellen zählen bei der Berechnung der Mindestbreite.
+
+| Firefox 159.0 bei 320 px | Vorher: clientWidth / scrollWidth | Nachher: clientWidth / scrollWidth |
+|---|---|---|
+| Vor der ersten Auswahl | 320 / 520 | 320 / 320 |
+| Nach PlantBuddy, Homelab, Portal Islands, Dashboard und Escape the Tide (je einzeln gemessen) | 320 / 520 | 320 / 320 |
+
+Nachprüfung mit Chromium 159.0.8154.6, Firefox 159.0 und WebKit 27.2 bei 320, 768, 1024 und 1440 CSS-px: In allen 60 Auswahlen war genau der passende Artikel sichtbar und der zugehörige Link aktiv. `clientWidth` und `scrollWidth` entsprachen jeweils der Viewportbreite. Die Sichtkontrolle aller fünf Grossansichten bei 320 und 1440 px sowie der fünf Miniaturen bei 1440 px zeigte in allen drei Engines vollständige Motive.
+
+Schritt 4.2 bleibt für die separate Screenreader-Prüfung offen.
 
 ## Überarbeitung Ü10 – Automatischer Projektrundgang
 
