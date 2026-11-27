@@ -167,10 +167,6 @@ main:focus {
   text-decoration: underline;
 }
 
-/* Unten knapper, damit der Einstieg nicht weit von «Projekte» absteht */
-.hero {
-  padding-block: var(--space-xl) var(--space-m);
-}
 
 .lead {
   max-width: 40rem;
@@ -287,7 +283,14 @@ h1 { font-size: clamp(3rem, 8vw, 6.5rem); }
 h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
 .subtitle { font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.25; }
 .brand { font-size: 1.35rem; }
-.hero { padding-block: clamp(2rem, 7vw, 6rem); }
+.hero {
+  display: grid;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-block: clamp(2rem, 5vw, 5rem);
+}
+.hero .container { max-width: 94rem; }
 .spread { display: grid; align-items: center; gap: 2rem; }
 .spread img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
 .button, .button:hover { color: #21160b; }
@@ -302,6 +305,7 @@ figcaption small { display: block; font: .9rem/1.5 var(--font-body); }
 .nav-list a[aria-current] { color: var(--color-accent); text-decoration: underline; text-underline-offset: .35em; }
 @media (min-width: 48rem) {
   .spread { grid-template-columns: 1fr 1fr; }
+  .hero .spread { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
   .hobby-grid { grid-template-columns: 1.5fr 1fr; }
   .hobby-grid figure:first-child { grid-row: span 2; }
 }
