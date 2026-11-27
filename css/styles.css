@@ -228,6 +228,10 @@ main:focus {
   margin-bottom: var(--space-s);
 }
 
+.skill a {
+  display: inline-block;
+}
+
 .skill p:last-child {
   margin-bottom: 0;
 }

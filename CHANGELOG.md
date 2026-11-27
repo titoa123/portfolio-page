@@ -1,5 +1,11 @@
 # Changelog
 
+## Ü12 – Korrektur der Trefferfläche für Skills-Projektlinks
+
+Auf `b4b69fd` in WebKit 27.2 bei 320 × 900 CSS-Pixeln reproduziert. Bei aktivem Dashboard wurde der Skills-Link «Zum Projekt PlantBuddy» ins Sichtfeld gescrollt. Link und Text lieferten mit `getClientRects()` jeweils 193,28 × 0 px. Am sichtbaren Schriftzug (21, 450) traf `elementFromPoint()` den Absatz. Ein Mausklick an dieser Stelle liess Dashboard aktiv. Enter zeigte PlantBuddy an. In Chromium 159.0.8154.6 und Firefox 159.0 funktionierten beide Eingaben bereits vor der Korrektur.
+
+Die beiden Skills-Links erhalten mit `.skill a { display: inline-block; }` eine Trefferfläche in Zeilenhöhe. In WebKit misst der PlantBuddy-Link nun 193,28 × 25,59 px. Obwohl der Textbereich weiterhin 0 px Höhe meldet, trifft dieselbe Koordinate jetzt den Link. Über den jeweiligen Skills-Link liessen sich PlantBuddy und Homelab in allen drei Engines ab Dashboard per Mauskoordinaten und per Tab/Enter öffnen. Projekthash, aktive Auswahl und sichtbarer Titel stimmten in allen zwölf Fällen. Der 3-px-Fokusrahmen war bei beiden Links in allen Engines sichtbar. Der lokale Firefox-Aufbau zeigte Ersatzglyphen. Die Prüfung mit echtem Screenreader (Schritt 4.2) und der Test auf Touch-Hardware bleiben separat offen.
+
 ## Ü12 – Projektarchiv ohne Sprünge
 
 Die Auswahl aktualisiert Detailansicht und Projekthash und lässt den Fokus auf dem Listenlink. Zurück und Vorwärts stellen die Auswahl wieder her. Im einspaltigen Layout führt «Zum ausgewählten Projekt» gezielt zum Titel. Ohne JavaScript bleiben alle fünf Artikel über ihre Fragmentlinks erreichbar.
