@@ -40,8 +40,6 @@ jump.hidden = false;
 let reducedMotion = motion.matches;
 let playing = initial < 0 && !reducedMotion;
 let visible = false;
-let hovering = false;
-let focused = catalog.contains(document.activeElement);
 let frame;
 let deadline;
 
@@ -58,7 +56,7 @@ function scheduleTour() {
   cancelAnimationFrame(frame);
   control.textContent = playing ? 'Pause' : 'Start';
   control.setAttribute('aria-label', playing ? 'Rundgang pausieren' : 'Rundgang starten');
-  if (!playing || !visible || hovering || focused || document.hidden) return;
+  if (!playing || !visible || document.hidden) return;
   bar.style.transform = 'scaleX(1)';
   deadline = performance.now() + interval;
   frame = requestAnimationFrame(tick);
@@ -75,35 +73,9 @@ if ('IntersectionObserver' in window) {
     visible = entry.isIntersecting;
     scheduleTour();
   }).observe(catalog);
-  catalog.addEventListener('pointerenter', event => {
-    hovering = event.pointerType === 'mouse';
-    scheduleTour();
-  });
-  catalog.addEventListener('pointerover', event => {
-    if (event.pointerType === 'mouse' && !hovering && !control.contains(event.target)) {
-      hovering = true;
-      scheduleTour();
-    }
-  });
-  catalog.addEventListener('pointerleave', () => {
-    if (!hovering) return;
-    hovering = false;
-    scheduleTour();
-  });
-  catalog.addEventListener('focusin', () => {
-    focused = true;
-    scheduleTour();
-  });
-  catalog.addEventListener('focusout', event => {
-    if (catalog.contains(event.relatedTarget)) return;
-    focused = false;
-    scheduleTour();
-  });
   control.addEventListener('click', () => {
     playing = !playing;
     if (playing) {
-      hovering = false;
-      focused = false;
       if (projectIndex(location.hash) >= 0) {
         history.replaceState({ project: current }, '', '#' + catalog.id);
       }
