@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-28 – Ladeverhalten der Hobbygalerie
+
+### Korrigiert
+
+Die drei Hobbybilder reservieren über ihre intrinsischen WebP-Masse bereits vor dem Laden Platz.
+
+### Getestet
+
+Lokales Chromium mit leerem Cache und zurückgehaltenen Bildantworten: Bei 320 px blieben die Bildhöhen von Wandern, Reisen und Sprint vor und nach dem Laden bei 168,02, 107,11 und 89,92 CSS-Pixeln. Alle drei Beschriftungen verschoben sich um 0 px. Bei 1440 px entsprachen Bildflächen und Ausschnitte dem vollständig geladenen Ausgangsstand.
+
 ## Überarbeitung Ü12 – Projektarchiv ohne Sprünge
 
 ### Neu
