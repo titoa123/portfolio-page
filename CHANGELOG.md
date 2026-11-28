@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-28 – Projektrundgang und Fortschritt in der README
+
+### Korrigiert
+
+Rundgangbeschreibung und Fortschrittsangabe an den Stand nach Ü12 angepasst. Screenreader-Prüfung und echte Touch-Hardware bleiben offen.
+
+### Getestet
+
+Lokaler Chromium-Test mit gesteuerter Browserzeit: Trotz Hover und Fokus wechselte PlantBuddy zu Homelab. Nach Enter auf Dashboard blieb die Auswahl über 20 Sekunden bestehen. Nach Start per Leertaste war bei 9,7 Sekunden Dashboard und bei 10,15 Sekunden Escape the Tide sichtbar.
+
 ## 2026-11-28 – Ladeverhalten der Hobbygalerie
 
 ### Korrigiert

@@ -4,7 +4,7 @@ Persönliches Portfolio für das Modul Web Engineering an der BFH, umgesetzt mit
 
 Im Projektarchiv lassen sich PlantBuddy, Homelab, Portal Islands, Dashboard und Escape the Tide direkt auswählen und über eigene Sprungziele verlinken. Ohne JavaScript sind alle fünf Projektartikel untereinander lesbar.
 
-Der Rundgang wechselt alle zehn Sekunden zum nächsten Projekt. Solange der Mauszeiger im Projektbereich liegt, der Bereich ausser Sicht ist oder der Tab im Hintergrund liegt, ruht der Timer. Eine manuelle Auswahl, ein Projekt-Direktlink oder Tastaturfokus im Projektbereich pausiert den Rundgang bis zum nächsten Klick auf «Rundgang starten». Dann beginnt ein volles Zehn-Sekunden-Intervall. Bei reduzierter Bewegung startet der Rundgang pausiert.
+Der Rundgang zeigt jedes Projekt zehn Sekunden lang. Hover und blosser Tastaturfokus lassen ihn weiterlaufen. Wer einen Projektlink anklickt oder mit Enter aktiviert, wählt das Projekt aus und pausiert den Rundgang dauerhaft. Auch «Pause» hält ihn an. Erst «Start» beginnt ein volles neues Intervall. Ausserhalb des Sichtfelds oder bei verborgenem Tab ruht der Timer. Bei einem Projekt-Direktlink oder reduzierter Bewegung startet der Rundgang pausiert.
 
 [Live-Seite auf GitHub Pages](https://titoa123.github.io/portfolio-page/)
 
@@ -41,4 +41,4 @@ Danach <http://localhost:8080/> im Browser öffnen.
 
 ## Fortschritt
 
-Das Redesign bis Ü11 ist integriert. Projektauswahl und Dokumentbreite wurden in Chromium, Firefox und WebKit bei 320, 768, 1024 und 1440 px geprüft. Die separate Screenreader-Prüfung in Schritt 4.2 ist offen. Einzelheiten stehen im [Changelog](CHANGELOG.md).
+Das Projektarchiv aus Ü12 und die anschliessenden Korrekturen sind integriert. Projektauswahl und Dokumentbreite wurden in Chromium, Firefox und WebKit bei 320, 768, 1024 und 1440 px geprüft. Offen sind die manuelle Screenreader-Prüfung in Schritt 4.2 und der Test auf echter Touch-Hardware. Einzelheiten stehen im [Changelog](CHANGELOG.md).
